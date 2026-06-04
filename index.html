@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>慧途研究院 · 高考志愿规划</title>
+<style>
+:root {
+  --ink: #1d1d1f;
+  --ink2: #424245;
+  --ink3: #6e6e73;
+  --fill1: #f5f5f7;
+  --fill2: #e8e8ed;
+  --white: #ffffff;
+  --gold: #9a7d4a;
+  --gold2: #b89a5e;
+  --gold-bg: #faf6ef;
+  --border: #d2d2d7;
+  --border2: #e8e8ed;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font); color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:200;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 52px;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+}
+.logo-mark {
+  width: 26px; height: 26px;
+}
+.logo-text { line-height: 1; }
+.logo-cn {
+  font-size: 16px; font-weight: 600; color: var(--ink);
+  letter-spacing: 0.04em;
+}
+.logo-cn em { font-style: normal; color: var(--gold); }
+.logo-sub {
+  font-size: 9.5px; color: var(--ink3);
+  letter-spacing: 0.22em; font-weight: 400;
+  display: block; margin-top: 1px;
+}
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 13px; color: var(--ink2); transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-btn {
+  font-size: 13px; font-weight: 500; color: var(--white);
+  background: var(--gold); border: none;
+  padding: 7px 18px; border-radius: 18px; cursor: pointer;
+  transition: background .2s, transform .15s;
+  letter-spacing: 0.01em;
+}
+.nav-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100svh;
+  background: var(--ink);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 96px 24px 80px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom:0; left:0; right:0; height: 160px;
+  background: linear-gradient(to top, rgba(29,29,31,0.6), transparent);
+  pointer-events: none;
+}
+.hero-noise {
+  position: absolute; inset:0; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 12px; color: var(--gold2);
+  letter-spacing: 0.22em; font-weight: 500;
+  text-transform: uppercase; margin-bottom: 28px;
+  opacity: 0; animation: au .9s .05s ease both;
+}
+.hero h1 {
+  font-size: clamp(38px, 6.5vw, 80px);
+  font-weight: 700; line-height: 1.06;
+  letter-spacing: -0.028em; color: var(--white);
+  margin-bottom: 22px;
+  opacity: 0; animation: au .9s .15s ease both;
+}
+.hero h1 em {
+  font-style: normal;
+  color: transparent;
+  background: linear-gradient(125deg, #c9a84c 0%, #e8c96a 50%, #c9a84c 100%);
+  -webkit-background-clip: text; background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 19px);
+  color: rgba(255,255,255,0.54); line-height: 1.68;
+  max-width: 520px; margin-bottom: 44px;
+  opacity: 0; animation: au .9s .25s ease both;
+}
+.btns {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: au .9s .35s ease both;
+}
+.btn {
+  display: inline-block; padding: 13px 30px;
+  border-radius: 28px; font-size: 15px; font-weight: 500;
+  cursor: pointer; border: none; letter-spacing: 0.01em;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-g {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--white);
+}
+.btn-g:hover { box-shadow: 0 12px 40px rgba(154,125,74,.38); }
+.btn-o {
+  background: rgba(255,255,255,0.09);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,.18);
+}
+.btn-o:hover { background: rgba(255,255,255,.15); }
+.scroll-cue {
+  position: absolute; bottom: 32px; left:50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: rgba(255,255,255,.25); font-size: 11px; letter-spacing: 0.12em;
+  opacity: 0; animation: au 1s .7s ease both;
+}
+.scroll-cue-line {
+  width: 1px; height: 36px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.25), transparent);
+  animation: blink 2.4s 1s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* ── GENERIC SECTION ── */
+.sec { padding: 96px 24px; }
+.sec-w { background: var(--white); }
+.sec-g { background: var(--fill1); }
+.sec-d { background: var(--ink); }
+.wrap { max-width: 1080px; margin: 0 auto; }
+.wrap-sm { max-width: 680px; margin: 0 auto; }
+.eyebrow {
+  display: block; font-size: 11.5px; color: var(--gold);
+  letter-spacing: 0.2em; font-weight: 600; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.eyebrow-center { text-align: center; }
+.ttl {
+  font-size: clamp(26px, 4vw, 50px);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.022em; margin-bottom: 14px;
+}
+.ttl-c { text-align: center; }
+.sub { font-size: 17px; color: var(--ink3); line-height: 1.65; }
+.sub-c { text-align: center; max-width: 500px; margin: 0 auto; }
+
+/* ── FEATURES GRID ── */
+.fg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border2);
+  border: 1px solid var(--border2);
+  border-radius: 18px; overflow: hidden;
+  margin-top: 56px;
+}
+.fi {
+  background: var(--white);
+  padding: 40px 32px;
+  opacity: 0; transform: translateY(16px);
+  transition: background .22s;
+}
+.fi:hover { background: var(--fill1); }
+.fi.vis { opacity:1; transform: none; transition: opacity .55s ease, transform .55s ease, background .22s; }
+.fi-num {
+  font-size: 10.5px; color: var(--gold); font-weight: 600;
+  letter-spacing: 0.18em; margin-bottom: 18px; display: block;
+}
+.fi-bar { width: 28px; height: 2px; background: var(--gold); margin-bottom: 18px; border-radius: 1px; }
+.fi h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
+.fi p { font-size: 13.5px; color: var(--ink3); line-height: 1.72; }
+
+/* ── REPORT PREVIEW ── */
+.rtabs {
+  display: flex; border-bottom: 1px solid var(--border2);
+  margin-bottom: 40px; overflow-x: auto; gap: 0;
+}
+.rtab {
+  padding: 12px 26px; font-size: 13.5px; font-weight: 500;
+  color: var(--ink3); cursor: pointer; border: none; background: none;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  white-space: nowrap; transition: color .2s, border-color .2s;
+}
+.rtab:hover { color: var(--ink); }
+.rtab.on { color: var(--gold); border-bottom-color: var(--gold); }
+.rpanel { display: none; }
+.rpanel.on { display: block; }
+
+.rcard {
+  background: var(--white);
+  border: 1px solid var(--border2);
+  border-radius: 16px; padding: 32px;
+}
+.rcard-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 20px; border-bottom: 1px solid var(--border2);
+  margin-bottom: 28px; flex-wrap: wrap; gap: 10px;
+}
+.rcard-label { font-size: 10.5px; color: var(--ink3); letter-spacing: 0.14em; font-weight: 600; }
+.rcard-badge {
+  font-size: 10.5px; background: var(--gold-bg); color: var(--gold);
+  padding: 4px 12px; border-radius: 6px; font-weight: 600; letter-spacing: 0.07em;
+}
+
+/* Profile table */
+.ptable { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ptable td { padding: 10px 0; border-bottom: 1px solid var(--border2); vertical-align: top; }
+.ptable td:nth-child(odd) { color: var(--ink3); width: 90px; }
+.ptable td:nth-child(even) { font-weight: 500; padding-right: 24px; }
+.ptable tr:last-child td { border-bottom: none; }
+
+/* Dim bars */
+.dbars { display: flex; flex-direction: column; gap: 14px; }
+.drow { display: flex; align-items: center; gap: 14px; }
+.dlabel { font-size: 12.5px; color: var(--ink2); min-width: 64px; font-weight: 500; }
+.dtrack { flex:1; height: 5px; background: var(--fill2); border-radius: 3px; overflow: hidden; }
+.dfill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  transform-origin: left; transform: scaleX(0);
+  transition: transform 1.1s cubic-bezier(.4,0,.2,1);
+}
+.dfill.run { transform: scaleX(1); }
+.dval { font-size: 12px; color: var(--ink3); min-width: 24px; text-align: right; font-weight: 500; }
+
+/* 冲稳保 */
+.csb { height: 40px; border-radius: 8px; overflow: hidden; display: flex; margin: 20px 0 14px; }
+.csb-rush { background: #ff453a; display: flex; align-items: center; justify-content: center; }
+.csb-stable { background: #0071e3; display: flex; align-items: center; justify-content: center; }
+.csb-safe { background: #30d158; display: flex; align-items: center; justify-content: center; }
+.csb span { font-size: 11.5px; color: #fff; font-weight: 600; padding: 0 8px; }
+.csb-leg { display: flex; gap: 20px; flex-wrap: wrap; }
+.csb-li { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--ink2); }
+.csb-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+/* Major rows */
+.mlist { display: flex; flex-direction: column; gap: 1px; background: var(--border2); border-radius: 12px; overflow: hidden; }
+.mrow {
+  display: grid; grid-template-columns: 1fr 72px 84px 110px;
+  gap: 16px; align-items: center;
+  background: var(--white); padding: 18px 22px;
+}
+.mrow.mhd { background: var(--fill1); }
+.mrow.mhd span { font-size: 10.5px; color: var(--ink3); letter-spacing: 0.1em; font-weight: 600; }
+.mname { font-size: 14px; font-weight: 500; }
+.mdesc { font-size: 12px; color: var(--ink3); margin-top: 3px; line-height: 1.5; }
+.mscore { font-size: 14px; font-weight: 600; text-align: right; }
+.aib { display: flex; align-items: center; gap: 8px; }
+.aitrack { flex:1; height: 4px; background: var(--fill2); border-radius: 2px; overflow: hidden; }
+.aifill { height: 100%; background: #ff9f0a; border-radius: 2px; }
+.ainum { font-size: 11px; color: var(--ink3); min-width: 20px; text-align: right; }
+
+/* Volunteer table */
+.vt { width:100%; border-collapse: collapse; font-size: 13px; }
+.vt th { padding: 9px 14px; text-align: left; font-size: 10.5px; color: var(--ink3); letter-spacing: 0.1em; font-weight: 600; border-bottom: 1px solid var(--border2); }
+.vt td { padding: 13px 14px; border-bottom: 1px solid var(--border2); color: var(--ink2); }
+.vt tr:last-child td { border-bottom: none; }
+.tbao { display:inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 600; background: #e3f9e5; color: #1a7f37; }
+.twen { display:inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 600; background: #e1f0ff; color: #0058b8; }
+.tchong { display:inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 600; background: #ffeef0; color: #c00; }
+
+/* ── PRICING ── */
+.pg {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-top: 56px; align-items: start;
+}
+.pc {
+  border: 1px solid var(--border2);
+  border-radius: 20px; padding: 30px 26px;
+  position: relative; background: var(--white);
+  opacity: 0; transform: translateY(20px);
+  transition: box-shadow .3s, transform .3s;
+}
+.pc.vis { opacity:1; transform: translateY(0); transition: opacity .6s ease, transform .6s ease, box-shadow .3s; }
+.pc:hover { transform: translateY(-5px); box-shadow: 0 18px 56px rgba(0,0,0,.09); }
+.pc.hl { background: var(--ink); border-color: var(--ink); }
+.pc.hl:hover { box-shadow: 0 18px 56px rgba(0,0,0,.28); }
+.pc-tag {
+  position: absolute; top:-1px; left:50%; transform: translateX(-50%);
+  background: var(--gold); color: var(--white);
+  font-size: 10px; font-weight: 700; padding: 5px 16px;
+  border-radius: 0 0 10px 10px; letter-spacing: 0.1em; white-space: nowrap;
+}
+.pc-tier { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 14px; display: block; }
+.pc-name { font-size: 18px; font-weight: 600; margin-bottom: 0; }
+.pc.hl .pc-name { color: var(--white); }
+.pc-price { margin: 18px 0 4px; line-height: 1; }
+.pc-curr { font-size: 17px; font-weight: 400; color: var(--gold); vertical-align: 8px; }
+.pc-num { font-size: 46px; font-weight: 700; color: var(--gold); letter-spacing: -0.03em; }
+.pc-free { font-size: 34px; font-weight: 700; color: var(--ink3); }
+.pc.hl .pc-curr, .pc.hl .pc-num { color: #fff; }
+.pc-note { font-size: 12.5px; color: var(--ink3); margin-bottom: 22px; }
+.pc.hl .pc-note { color: rgba(255,255,255,.45); }
+.pc-hr { height:1px; background: var(--border2); margin: 18px 0; }
+.pc.hl .pc-hr { background: rgba(255,255,255,.1); }
+.pcl { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 26px; }
+.pcl li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--ink2); line-height: 1.5; }
+.pc.hl .pcl li { color: rgba(255,255,255,.72); }
+.ck { flex-shrink: 0; margin-top: 1px; color: var(--gold); }
+.pc.hl .ck { color: var(--gold2); }
+.pb {
+  width:100%; padding: 11px; border-radius: 12px;
+  font-size: 14px; font-weight: 500; cursor: pointer; border: none;
+  transition: transform .15s, opacity .2s; letter-spacing: 0.01em;
+}
+.pb:hover { transform: scale(1.02); }
+.pb-g { background: var(--gold); color: var(--white); }
+.pb-w { background: var(--white); color: var(--ink); }
+.pb-t { background: transparent; color: var(--ink3); border: 1px solid var(--border); }
+
+/* Urgency */
+.ub {
+  margin-top: 32px; padding: 26px 34px;
+  background: var(--gold-bg); border: 1px solid rgba(154,125,74,.2);
+  border-radius: 16px; display: flex; flex-wrap: wrap; gap: 18px;
+  align-items: center; justify-content: space-between;
+  opacity: 0; transform: translateY(12px);
+}
+.ub.vis { opacity:1; transform: none; transition: opacity .6s ease, transform .6s ease; }
+.ub h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.ub p { font-size: 13px; color: var(--ink3); line-height: 1.6; }
+.utags { display: flex; gap: 8px; flex-wrap: wrap; }
+.utag { padding: 6px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 500; }
+.utag-r { background: #ffeef0; color: #cc0000; }
+.utag-g { background: rgba(154,125,74,.1); color: var(--gold); }
+
+/* ── CTA ── */
+.cta { background: var(--ink); text-align: center; padding: 96px 24px; }
+.cta .ttl { color: var(--white); }
+.cta .ttl em { font-style: normal; color: var(--gold2); }
+.cta .sub { color: rgba(255,255,255,.45); margin: 12px auto 36px; max-width: 460px; display: block; }
+
+/* ── FOOTER ── */
+footer {
+  background: #111; border-top: 1px solid rgba(255,255,255,.06);
+  padding: 28px 52px; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+.flogo { font-size: 14px; color: rgba(255,255,255,.75); font-weight: 500; letter-spacing: 0.04em; }
+.flogo em { font-style: normal; color: var(--gold2); }
+.fcopy { font-size: 11.5px; color: rgba(255,255,255,.28); }
+
+/* ── UTILS ── */
+.mt8 { margin-top: 8px; }
+.mt12 { margin-top: 12px; }
+.mt16 { margin-top: 16px; }
+.mt32 { margin-top: 32px; }
+.sample-note {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid var(--border2); border-radius: 8px;
+  padding: 7px 14px; font-size: 12.5px; color: var(--ink3);
+  margin-bottom: 28px; background: var(--fill1);
+}
+.sample-note strong { color: var(--gold); }
+
+@keyframes au {
+  from { opacity:0; transform: translateY(20px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .fg { grid-template-columns: 1fr; }
+  .pg { grid-template-columns: 1fr 1fr; }
+  .mrow { grid-template-columns: 1fr 60px 80px; }
+  .mrow > *:last-child { display: none; }
+  footer { padding: 24px 20px; }
+}
+@media (max-width: 600px) {
+  .pg { grid-template-columns: 1fr; }
+  .rcard { padding: 20px; }
+  .ub { padding: 20px 22px; }
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--fill1); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── SAMPLE SWITCHER ── */
+.switcher {
+  display: flex; gap: 14px; flex-wrap: wrap;
+}
+.sw-btn {
+  flex: 1; min-width: 240px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 22px; border-radius: 14px;
+  border: 1.5px solid var(--border2);
+  background: var(--white); cursor: pointer;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  text-align: left;
+}
+.sw-btn:hover { border-color: var(--gold); }
+.sw-btn.on {
+  border-color: var(--gold);
+  background: var(--gold-bg);
+  box-shadow: 0 0 0 3px rgba(154,125,74,.12);
+}
+.sw-badge {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  color: var(--white); background: var(--gold);
+  padding: 4px 10px; border-radius: 6px; flex-shrink: 0;
+}
+.sw-btn:not(.on) .sw-badge { background: var(--ink3); }
+.sw-score { font-size: 22px; font-weight: 700; color: var(--ink); }
+.sw-meta { font-size: 12.5px; color: var(--ink3); margin-top: 3px; }
+
+/* ── SDECK ── */
+.sdeck { display: none; }
+.sdeck.on { display: block; }
+
+/* ── CHART LABELS ── */
+.cl {
+  font-size: 11px; font-weight: 600; color: var(--ink3);
+  letter-spacing: 0.1em; margin-bottom: 12px;
+}
+.chart-note {
+  font-size: 12px; color: var(--ink3); line-height: 1.6;
+  padding: 13px; background: var(--fill1); border-radius: 10px;
+}
+
+/* ── PROFILE TEXT ── */
+.pl { font-size: 10.5px; color: var(--ink3); letter-spacing: 0.12em; font-weight: 600; margin-bottom: 8px; }
+.pt { font-size: 13px; line-height: 1.72; color: var(--ink2); }
+
+/* ── UNLOCK BOX ── */
+.unlock-box {
+  margin-top: 16px; padding: 14px 16px;
+  background: var(--fill1); border-radius: 10px;
+  font-size: 13px; color: var(--ink3); line-height: 1.65;
+}
+.unlock-box strong { color: var(--ink); }
+
+/* ── REASON CARD ── */
+.reason-card {
+  border: 1px solid var(--border2); border-radius: 12px;
+  padding: 22px; background: var(--fill1);
+}
+.reason-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 16px; flex-wrap: wrap;
+}
+.reason-rank { font-size: 10.5px; color: var(--ink3); letter-spacing: 0.12em; font-weight: 600; margin-bottom: 6px; }
+.reason-school { font-size: 18px; font-weight: 700; }
+.reason-major { font-size: 13px; color: var(--ink3); margin-top: 4px; }
+.reason-tier { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.tbao-inline { color: #1a7f37; }
+.twen-inline { color: #0058b8; }
+.tchong-inline { color: #cc0000; }
+.reason-prob { font-size: 28px; font-weight: 700; color: var(--gold); line-height: 1; }
+.reason-total { font-size: 12px; color: var(--ink3); margin-top: 4px; }
+.rl { font-size: 11px; font-weight: 600; color: var(--ink3); letter-spacing: 0.1em; margin-bottom: 10px; }
+.reason-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.reason-list li {
+  font-size: 13px; color: var(--ink2); line-height: 1.6;
+  padding-left: 14px; position: relative;
+}
+.reason-list li::before {
+  content: ''; position: absolute; left: 0; top: 8px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold);
+}
+.reason-warn li::before { background: #ff9f0a; }
+.score-row {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;
+}
+.score-row span {
+  font-size: 11px; color: var(--ink3);
+  background: var(--white); border: 1px solid var(--border2);
+  padding: 4px 10px; border-radius: 6px; font-weight: 500;
+}
+
+/* ── TABLE HELPERS ── */
+.ph { color: #1a7f37; font-weight: 600; }
+.pm { color: #0058b8; font-weight: 600; }
+.th { font-size: 12px; color: var(--ink3); }
+
+/* ── PREVIEW SECTION ENHANCEMENTS ── */
+
+/* Differentiator strip */
+.diff-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border2);
+  border: 1px solid var(--border2); border-radius: 14px;
+  overflow: hidden; margin: 48px 0 0;
+}
+.diff-item {
+  background: var(--white); padding: 28px 24px;
+  transition: background .2s;
+}
+.diff-item:hover { background: var(--gold-bg); }
+.diff-num {
+  font-size: 36px; font-weight: 700; color: var(--gold);
+  letter-spacing: -0.03em; line-height: 1;
+  margin-bottom: 6px;
+}
+.diff-label {
+  font-size: 15px; font-weight: 600; color: var(--ink);
+  margin-bottom: 6px;
+}
+.diff-desc { font-size: 12.5px; color: var(--ink3); line-height: 1.6; }
+
+/* Improved sample switcher */
+.switcher2 {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; margin-top: 48px;
+}
+.sw2 {
+  border: 1.5px solid var(--border2); border-radius: 16px;
+  padding: 22px 24px; cursor: pointer; background: var(--white);
+  transition: border-color .22s, box-shadow .22s, background .22s;
+  text-align: left; position: relative; overflow: hidden;
+}
+.sw2:hover { border-color: var(--gold); }
+.sw2.on {
+  border-color: var(--gold); background: var(--gold-bg);
+  box-shadow: 0 0 0 3px rgba(154,125,74,.1);
+}
+.sw2-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.sw2-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+  color: var(--white); background: var(--gold);
+  padding: 4px 12px; border-radius: 6px;
+}
+.sw2:not(.on) .sw2-label { background: var(--ink3); }
+.sw2-check {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: transparent; font-size: 10px;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.sw2.on .sw2-check {
+  background: var(--gold); border-color: var(--gold); color: white;
+}
+.sw2-score {
+  font-size: 42px; font-weight: 800; color: var(--ink);
+  letter-spacing: -0.04em; line-height: 1;
+}
+.sw2-score span { font-size: 16px; font-weight: 400; color: var(--ink3); margin-left: 3px; }
+.sw2-tags {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+}
+.sw2-tag {
+  font-size: 11.5px; padding: 4px 10px; border-radius: 6px;
+  background: var(--fill1); color: var(--ink2); font-weight: 500;
+  border: 1px solid var(--border2);
+}
+.sw2.on .sw2-tag { background: rgba(154,125,74,.1); border-color: rgba(154,125,74,.2); color: var(--gold); }
+.sw2-result {
+  margin-top: 16px; padding: 12px 14px;
+  background: var(--fill1); border-radius: 10px;
+  border: 1px solid var(--border2);
+}
+.sw2.on .sw2-result { background: rgba(154,125,74,.08); border-color: rgba(154,125,74,.18); }
+.sw2-result-label { font-size: 10px; color: var(--ink3); letter-spacing: 0.1em; font-weight: 600; margin-bottom: 5px; }
+.sw2-result-val { font-size: 13px; color: var(--ink); font-weight: 500; line-height: 1.4; }
+.sw2-compare {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 10px; font-size: 12px; color: var(--ink3);
+}
+.sw2-compare-bar {
+  flex:1; height: 4px; background: var(--fill2); border-radius: 2px; overflow: hidden;
+}
+.sw2-compare-fill { height: 100%; background: var(--gold); border-radius: 2px; }
+
+/* Improved tab panel cards */
+.rcard2 {
+  background: var(--white);
+  border: 1px solid var(--border2);
+  border-radius: 18px; overflow: hidden;
+}
+.rcard2-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 28px; border-bottom: 1px solid var(--border2);
+  background: var(--fill1); flex-wrap: wrap; gap: 8px;
+}
+.rcard2-title { font-size: 10.5px; color: var(--ink3); letter-spacing: 0.14em; font-weight: 600; }
+.rcard2-badge {
+  font-size: 10.5px; background: var(--gold-bg); color: var(--gold);
+  padding: 4px 12px; border-radius: 6px; font-weight: 600; letter-spacing: 0.06em;
+}
+.rcard2-body { padding: 28px; }
+
+/* Highlight stat boxes */
+.stat-boxes {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-box {
+  background: var(--fill1); border-radius: 10px; padding: 14px 16px;
+  border: 1px solid var(--border2);
+}
+.stat-box-num { font-size: 26px; font-weight: 700; color: var(--gold); letter-spacing: -0.03em; line-height: 1; }
+.stat-box-lbl { font-size: 11px; color: var(--ink3); margin-top: 4px; letter-spacing: 0.06em; }
+
+/* Staggered bars */
+.drow2 {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 0; border-bottom: 1px solid var(--border2);
+}
+.drow2:last-child { border-bottom: none; }
+.dlabel2 { font-size: 13px; color: var(--ink2); min-width: 64px; font-weight: 500; }
+.dtrack2 {
+  flex:1; height: 6px; background: var(--fill2);
+  border-radius: 3px; overflow: hidden;
+}
+.dfill2 {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  transform-origin: left; transform: scaleX(0);
+  transition: transform 0.8s cubic-bezier(.4,0,.2,1);
+}
+.dfill2.run { transform: scaleX(1); }
+.dval2 { font-size: 14px; font-weight: 700; color: var(--ink); min-width: 28px; text-align: right; }
+
+/* AI risk gauge */
+.ai-gauge-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 0; border-bottom: 1px solid var(--border2);
+}
+.ai-gauge-row:last-child { border-bottom: none; }
+.ai-info { flex:1; }
+.ai-name { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.ai-desc { font-size: 12px; color: var(--ink3); line-height: 1.5; }
+.ai-scores { display: flex; gap: 8px; flex-shrink: 0; }
+.ai-score-chip {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 12px; border-radius: 10px; min-width: 56px;
+  border: 1px solid var(--border2);
+}
+.ai-score-chip.main { background: var(--gold-bg); border-color: rgba(154,125,74,.25); }
+.ai-score-chip.ai { background: #fff8f0; border-color: #ffd0a0; }
+.ai-chip-num { font-size: 18px; font-weight: 700; }
+.ai-score-chip.main .ai-chip-num { color: var(--gold); }
+.ai-score-chip.ai .ai-chip-num { color: #c05000; }
+.ai-chip-lbl { font-size: 9.5px; color: var(--ink3); letter-spacing: 0.08em; font-weight: 600; margin-top: 2px; }
+.ai-bar-wrap { width: 80px; }
+.ai-bar-track { height: 4px; background: var(--fill2); border-radius: 2px; overflow:hidden; }
+.ai-bar-fill { height: 100%; border-radius: 2px; background: #ff9f0a; }
+
+/* Vol table enhanced */
+.vt2 { width:100%; border-collapse: collapse; font-size: 13px; }
+.vt2 th {
+  padding: 10px 16px; text-align: left;
+  font-size: 10px; color: var(--ink3); letter-spacing: 0.1em; font-weight: 600;
+  background: var(--fill1); border-bottom: 1px solid var(--border2);
+}
+.vt2 td { padding: 13px 16px; border-bottom: 1px solid var(--border2); }
+.vt2 tr:last-child td { border-bottom: none; }
+.vt2 tr:hover td { background: var(--fill1); }
+.prob-cell { display: flex; flex-direction: column; gap: 4px; }
+.prob-num { font-weight: 700; font-size: 14px; }
+.prob-bar { height: 3px; border-radius: 2px; background: var(--fill2); overflow:hidden; width: 60px; }
+.prob-fill { height: 100%; border-radius: 2px; }
+
+/* Blur / lock overlay */
+.blur-wrap { position: relative; overflow: hidden; border-radius: 12px; }
+.blur-content { }
+.blur-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
+  background: linear-gradient(to bottom, transparent, rgba(245,245,247,0.97) 60%);
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding-bottom: 24px; z-index: 10;
+}
+.blur-lock {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.lock-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--white); border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+.lock-text { font-size: 13px; color: var(--ink2); font-weight: 500; }
+.lock-btn {
+  background: var(--gold); color: var(--white);
+  border: none; padding: 10px 24px; border-radius: 20px;
+  font-size: 13.5px; font-weight: 600; cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+.lock-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* Reason card v2 */
+.rc2 { border: 1px solid var(--border2); border-radius: 14px; overflow: hidden; }
+.rc2-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px; background: var(--fill1);
+  border-bottom: 1px solid var(--border2); flex-wrap: wrap; gap: 12px;
+}
+.rc2-rank-school { }
+.rc2-num { font-size: 10px; color: var(--ink3); letter-spacing: 0.14em; font-weight: 600; }
+.rc2-school { font-size: 16px; font-weight: 700; margin-top: 3px; }
+.rc2-major { font-size: 12.5px; color: var(--ink3); margin-top: 2px; }
+.rc2-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.rc2-tier { font-size: 11px; font-weight: 700; }
+.rc2-prob { font-size: 28px; font-weight: 800; color: var(--gold); letter-spacing: -0.03em; line-height: 1; }
+.rc2-total { font-size: 11px; color: var(--ink3); }
+.rc2-body { padding: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.rc2-section-title { font-size: 10px; color: var(--ink3); letter-spacing: 0.14em; font-weight: 600; margin-bottom: 12px; }
+.rc2-points { display: flex; flex-direction: column; gap: 10px; }
+.rc2-point {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 13px; color: var(--ink2); line-height: 1.6;
+}
+.rc2-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+.rc2-dot.g { background: var(--gold); }
+.rc2-dot.o { background: #ff9f0a; }
+.rc2-scores {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px;
+  padding-top: 14px; border-top: 1px solid var(--border2);
+}
+.rc2-score-chip {
+  font-size: 11.5px; padding: 5px 11px; border-radius: 7px;
+  background: var(--fill1); border: 1px solid var(--border2);
+  color: var(--ink2); font-weight: 500;
+}
+
+/* Tab panel content transition */
+.rpanel { display: none; animation: fadeSlide .3s ease; }
+.rpanel.on { display: block; }
+@keyframes fadeSlide {
+  from { opacity:0; transform: translateY(8px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .diff-strip { grid-template-columns: 1fr; }
+  .switcher2 { grid-template-columns: 1fr; }
+  .stat-boxes { grid-template-columns: repeat(2,1fr); }
+  .rcard2-body { padding: 18px; }
+  .rc2-body { grid-template-columns: 1fr; }
+  .ai-scores { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">
+    <svg class="logo-mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="13" cy="13" r="12" stroke="#9a7d4a" stroke-width="1.2"/>
+      <path d="M13 4.5L15.4 13L13 11.2L10.6 13Z" fill="#9a7d4a"/>
+      <path d="M13 21.5L10.6 13L13 14.8L15.4 13Z" fill="#9a7d4a" opacity="0.35"/>
+      <circle cx="13" cy="13" r="1.4" fill="#9a7d4a"/>
+    </svg>
+    <div class="logo-text">
+      <div class="logo-cn"><em>慧</em>途</div>
+      <span class="logo-sub">研究院</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#features">报告内容</a>
+    <a href="#preview">报告预览</a>
+    <a href="#pricing">套餐价格</a>
+  </div>
+  <button class="nav-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">立即咨询</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-noise"></div>
+  <p class="hero-eyebrow">慧途研究院 · 高考志愿规划</p>
+  <h1>让每一个志愿<br>都有<em>充分的理由</em></h1>
+  <p class="hero-sub">基于霍兰德兴趣匹配、AI替代风险评估、六维录取分析的专业报告体系，帮你在填报前真正读懂自己的方向</p>
+  <div class="btns">
+    <a href="#pricing" class="btn btn-g">查看套餐方案</a>
+    <a href="#preview" class="btn btn-o">查看报告样本</a>
+  </div>
+  <div class="scroll-cue">
+    <span>了解更多</span>
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="sec sec-w" id="features">
+  <div class="wrap">
+    <span class="eyebrow">报告内容</span>
+    <h2 class="ttl">一份完整报告<br>包含哪些内容</h2>
+    <p class="sub mt12" style="max-width:480px;">不只是一张表格，而是一套可供家庭落地决策的完整分析体系</p>
+    <div class="fg">
+      <div class="fi">
+        <span class="fi-num">01</span>
+        <div class="fi-bar"></div>
+        <h3>学生画像与规划建议</h3>
+        <p>基于霍兰德职业兴趣测评，结合分数、选科、城市偏好、读研倾向，生成个性化画像，明确规划主线与家庭决策重点</p>
+      </div>
+      <div class="fi">
+        <span class="fi-num">02</span>
+        <div class="fi-bar"></div>
+        <h3>推荐专业深读</h3>
+        <p>Top 3 专业完整分析：课程难度、就业路径、读研价值、AI替代风险。附高中生三步自测行动，让你在填报前验证真实兴趣</p>
+      </div>
+      <div class="fi">
+        <span class="fi-num">03</span>
+        <div class="fi-bar"></div>
+        <h3>决策图表概览</h3>
+        <p>冲稳保比例、专业方向集中度、六维价值均衡度——把复杂数据可视化，让家庭会议有东西讨论</p>
+      </div>
+      <div class="fi">
+        <span class="fi-num">04</span>
+        <div class="fi-bar"></div>
+        <h3>AI 替代风险评估</h3>
+        <p>对每个推荐专业和候选志愿评估 AI 抗替代分（0–100），提醒家庭在选择时考虑未来十年的职业韧性</p>
+      </div>
+      <div class="fi">
+        <span class="fi-num">05</span>
+        <div class="fi-bar"></div>
+        <h3>前五志愿理由拆解</h3>
+        <p>每个志愿从保研、学科质量、薪资、考公难度、城市匹配五个维度给出详细加分项与风险提示</p>
+      </div>
+      <div class="fi">
+        <span class="fi-num">06</span>
+        <div class="fi-bar"></div>
+        <h3>最终志愿策略页</h3>
+        <p>将50个候选分成核心推荐、重点沟通亮点、弹性备选三类，直接转化为可落地的填报清单</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORT PREVIEW -->
+<section class="sec sec-g" id="preview">
+  <div class="wrap">
+    <span class="eyebrow">真实报告片段</span>
+    <h2 class="ttl">650分与660分<br>系统给出了两份截然不同的答案</h2>
+    <p class="sub mt12" style="max-width:580px;">这就是个性化的价值。以下内容均来自真实报告，点击切换两位同学的案例，观察同一套系统如何读懂不同的人</p>
+
+    <!-- Three differentiators -->
+    <div class="diff-strip">
+      <div class="diff-item">
+        <div class="diff-num">50</div>
+        <div class="diff-label">个候选志愿全量分析</div>
+        <div class="diff-desc">不只给一张清单，每个志愿都有得分、概率和层次标签，完整版附 Excel</div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-num">6</div>
+        <div class="diff-label">维价值维度量化评估</div>
+        <div class="diff-desc">学科质量、保研潜力、城市匹配、兴趣匹配、收入出口、录取把握——每个维度有评分依据</div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-num">AI</div>
+        <div class="diff-label">替代风险独家评分</div>
+        <div class="diff-desc">对每个推荐专业给出 0–100 的 AI 抗替代分，帮你在选专业时考虑未来十年的职业韧性</div>
+      </div>
+    </div>
+
+    <!-- Sample switcher v2 -->
+    <div class="switcher2">
+      <button class="sw2 on" data-s="18">
+        <div class="sw2-top">
+          <span class="sw2-label">样本 A</span>
+          <div class="sw2-check">✓</div>
+        </div>
+        <div class="sw2-score">650<span>分</span></div>
+        <div class="sw2-tags">
+          <span class="sw2-tag">出国模式</span>
+          <span class="sw2-tag">一线/南方偏好</span>
+          <span class="sw2-tag">霍兰德 SEI</span>
+          <span class="sw2-tag">保守型组合</span>
+        </div>
+        <div class="sw2-result">
+          <div class="sw2-result-label">推荐聚焦</div>
+          <div class="sw2-result-val">计算机软件与电子信息硬科技方向 · 保35 / 稳15</div>
+          <div class="sw2-compare" style="margin-top:10px;">
+            <span style="font-size:11px;color:var(--ink3);white-space:nowrap;">录取把握</span>
+            <div class="sw2-compare-bar"><div class="sw2-compare-fill" style="width:94%"></div></div>
+            <span style="font-size:12px;font-weight:700;color:var(--gold);">94</span>
+          </div>
+        </div>
+      </button>
+      <button class="sw2" data-s="14">
+        <div class="sw2-top">
+          <span class="sw2-label">样本 B</span>
+          <div class="sw2-check">✓</div>
+        </div>
+        <div class="sw2-score">660<span>分</span></div>
+        <div class="sw2-tags">
+          <span class="sw2-tag">综合模式</span>
+          <span class="sw2-tag">南北省多向</span>
+          <span class="sw2-tag">霍兰德 RIE</span>
+          <span class="sw2-tag">冲刺型组合</span>
+        </div>
+        <div class="sw2-result">
+          <div class="sw2-result-label">推荐聚焦</div>
+          <div class="sw2-result-val">计算机软件与电子信息硬科技方向 · 稳21 / 保20 / 冲9</div>
+          <div class="sw2-compare" style="margin-top:10px;">
+            <span style="font-size:11px;color:var(--ink3);white-space:nowrap;">兴趣匹配</span>
+            <div class="sw2-compare-bar"><div class="sw2-compare-fill" style="width:88%"></div></div>
+            <span style="font-size:12px;font-weight:700;color:var(--gold);">88</span>
+          </div>
+        </div>
+      </button>
+    </div>
+
+    <div class="rtabs" role="tablist" style="margin-top:40px;border-bottom:1px solid var(--border2);margin-bottom:28px;">
+      <button class="rtab on" data-tab="profile">学生画像</button>
+      <button class="rtab" data-tab="charts">决策图表</button>
+      <button class="rtab" data-tab="major">专业 · AI风险</button>
+      <button class="rtab" data-tab="vols">志愿清单</button>
+      <button class="rtab" data-tab="reason">理由拆解 <span style="font-size:10px;background:var(--gold);color:#fff;padding:2px 6px;border-radius:4px;margin-left:4px;vertical-align:1px;">完整版</span></button>
+    </div>
+
+    <!-- ══ SAMPLE 18 ══ -->
+    <div class="sdeck on" id="s18">
+
+      <!-- 学生画像 -->
+      <div class="rpanel on" id="s18-profile">
+        <div class="rcard2">
+          <div class="rcard2-hd">
+            <span class="rcard2-title">STUDENT PROFILE · 学生画像与规划建议</span>
+            <span class="rcard2-badge">样本 A · #18 · 完整版报告</span>
+          </div>
+          <div class="rcard2-body">
+            <div class="stat-boxes" style="margin-bottom:24px;">
+              <div class="stat-box"><div class="stat-box-num">650</div><div class="stat-box-lbl">高考分数</div></div>
+              <div class="stat-box"><div class="stat-box-num">50</div><div class="stat-box-lbl">候选志愿数</div></div>
+              <div class="stat-box"><div class="stat-box-num">15</div><div class="stat-box-lbl">特殊项目识别</div></div>
+              <div class="stat-box"><div class="stat-box-num">SEI</div><div class="stat-box-lbl">霍兰德类型</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div>
+                <table class="ptable">
+                  <tr><td>组合结构</td><td colspan="3" style="font-weight:700;color:var(--gold)">保 35 / 稳 15</td></tr>
+                  <tr><td>推荐聚焦</td><td colspan="3">计算机软件与电子信息硬科技</td></tr>
+                  <tr><td>读研倾向</td><td colspan="3">确定读研，已锁定目标院校与专业</td></tr>
+                  <tr><td>城市偏好</td><td colspan="3">一线、南方</td></tr>
+                  <tr><td>中外合作</td><td colspan="3">接受</td></tr>
+                  <tr><td>优势科目</td><td colspan="3">数学、物理</td></tr>
+                  <tr><td>排斥方向</td><td colspan="3">哲学、法学、教育学、文学、历史学、农学、医学</td></tr>
+                </table>
+              </div>
+              <div style="background:var(--fill1);border-radius:12px;padding:20px;border:1px solid var(--border2);">
+                <div class="pl">系统一句话画像</div>
+                <p class="pt" style="font-style:italic;color:var(--ink);">"偏好理学、工学，优势在数学、物理；推荐聚焦计算机软件与电子信息硬科技方向，与高平台、硬科技和读研发展路径较一致。"</p>
+                <div class="pl" style="margin-top:16px;">规划主线</div>
+                <p class="pt">建议先保留学科实力和平台优势，再用预算、地域、特殊培养项目做最后取舍。</p>
+                <div class="pl" style="margin-top:16px;">系统高层次判断</div>
+                <p class="pt">S6、E6、I4 较突出，和软件工程、计算机科学与技术等方向的逻辑分析、高薪出口较匹配。Top 候选集中在吉林大学×8、厦门大学×3。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 决策图表 -->
+      <div class="rpanel" id="s18-charts">
+        <div class="rcard2">
+          <div class="rcard2-hd">
+            <span class="rcard2-title">DECISION CHARTS · 决策图表概览</span>
+            <span class="rcard2-badge">样本 A · #18</span>
+          </div>
+          <div class="rcard2-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+              <div>
+                <div class="cl" style="margin-bottom:14px;">冲稳保结构</div>
+                <div style="display:flex;gap:3px;height:52px;border-radius:10px;overflow:hidden;margin-bottom:14px;">
+                  <div style="background:#ff453a;display:flex;align-items:center;justify-content:center;width:0%;"></div>
+                  <div style="background:#0071e3;flex:0 0 30%;display:flex;align-items:center;justify-content:center;"><span style="font-size:12px;font-weight:700;color:#fff;">稳 15</span></div>
+                  <div style="background:#30d158;flex:1;display:flex;align-items:center;justify-content:center;"><span style="font-size:13px;font-weight:700;color:#fff;">保 35</span></div>
+                </div>
+                <div class="csb-leg" style="margin-bottom:0;">
+                  <div class="csb-li"><div class="csb-dot" style="background:#ff453a"></div>冲 0 · 极低风险</div>
+                  <div class="csb-li"><div class="csb-dot" style="background:#0071e3"></div>稳 30%</div>
+                  <div class="csb-li"><div class="csb-dot" style="background:#30d158"></div>保 70%</div>
+                </div>
+                <div class="chart-note" style="margin-top:18px;">
+                  <strong>院校集中度：</strong> 吉林大学 ×8、厦门大学 ×3、西北农林科技大学 ×3、南昌大学 ×3<br>
+                  <span style="color:var(--ink3);margin-top:6px;display:block;">识别到 15 个特殊项目标签，涵盖中外合作、境外校区等路径</span>
+                </div>
+              </div>
+              <div>
+                <div class="cl" style="margin-bottom:14px;">推荐价值维度均衡度</div>
+                <div id="db18v2">
+                  <div class="drow2"><span class="dlabel2">学科质量</span><div class="dtrack2"><div class="dfill2" data-w="77"></div></div><span class="dval2">77</span></div>
+                  <div class="drow2"><span class="dlabel2">保研潜力</span><div class="dtrack2"><div class="dfill2" data-w="81"></div></div><span class="dval2">81</span></div>
+                  <div class="drow2"><span class="dlabel2">城市匹配</span><div class="dtrack2"><div class="dfill2" data-w="69"></div></div><span class="dval2">69</span></div>
+                  <div class="drow2"><span class="dlabel2">兴趣匹配</span><div class="dtrack2"><div class="dfill2" data-w="91"></div></div><span class="dval2" style="color:var(--gold)">91</span></div>
+                  <div class="drow2"><span class="dlabel2">收入出口</span><div class="dtrack2"><div class="dfill2" data-w="90"></div></div><span class="dval2" style="color:var(--gold)">90</span></div>
+                  <div class="drow2"><span class="dlabel2">录取把握</span><div class="dtrack2"><div class="dfill2" data-w="94"></div></div><span class="dval2" style="color:var(--gold)">94</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 专业 + AI风险 -->
+      <div class="rpanel" id="s18-major">
+        <div class="rcard2">
+          <div class="rcard2-hd">
+            <span class="rcard2-title">MAJOR + AI RISK · 推荐专业与 AI 替代风险（免费版展示方向）</span>
+            <span class="rcard2-badge">样本 A · #18</span>
+          </div>
+          <div class="rcard2-body">
+            <div class="ai-gauge-row">
+              <div class="ai-info">
+                <div class="ai-name">软件工程</div>
+                <div class="ai-desc">应用面宽，就业强，需关注代码实践和项目经历。重复编码、常规脚本会被 AI 显著压缩，但工程质量要求上升。</div>
+              </div>
+              <div class="ai-scores">
+                <div class="ai-score-chip main"><div class="ai-chip-num">100.0</div><div class="ai-chip-lbl">综合得分</div></div>
+                <div class="ai-score-chip"><div class="ai-chip-num" style="color:var(--ink2)">83.8</div><div class="ai-chip-lbl">霍兰德匹配</div></div>
+                <div class="ai-score-chip ai"><div class="ai-chip-num">58/100</div><div class="ai-chip-lbl">AI 暴露风险</div></div>
+              </div>
+            </div>
+            <div class="ai-gauge-row">
+              <div class="ai-info">
+                <div class="ai-name">电子科学与技术</div>
+                <div class="ai-desc">硬件与通信产业相关，软硬结合形成壁垒。仿真、文档和部分设计辅助会自动化，但工程落地仍有实践要求。</div>
+              </div>
+              <div class="ai-scores">
+                <div class="ai-score-chip main"><div class="ai-chip-num">99.4</div><div class="ai-chip-lbl">综合得分</div></div>
+                <div class="ai-score-chip"><div class="ai-chip-num" style="color:var(--ink2)">91.9</div><div class="ai-chip-lbl">霍兰德匹配</div></div>
+                <div class="ai-score-chip ai"><div class="ai-chip-num" style="color:#c07000">36/100</div><div class="ai-chip-lbl">AI 暴露风险</div></div>
+              </div>
+            </div>
+            <div class="ai-gauge-row">
+              <div class="ai-info">
+                <div class="ai-name">统计学</div>
+                <div class="ai-desc">标准化资料处理会被 AI 加速，核心竞争力取决于专业判断和场景落地。建议结合课程难度与读研需求核查。</div>
+              </div>
+              <div class="ai-scores">
+                <div class="ai-score-chip main"><div class="ai-chip-num">98.7</div><div class="ai-chip-lbl">综合得分</div></div>
+                <div class="ai-score-chip"><div class="ai-chip-num" style="color:var(--ink2)">91.8</div><div class="ai-chip-lbl">霍兰德匹配</div></div>
+                <div class="ai-score-chip ai"><div class="ai-chip-num" style="color:#a05000">50/100</div><div class="ai-chip-lbl">AI 暴露风险</div></div>
+              </div>
+            </div>
+            <div class="unlock-box" style="margin-top:20px;">
+              <strong>完整版解锁：</strong> Top 3 专业的课程难度、就业路径、读研价值、AI替代深度分析，以及给高中生的三步自测行动（例：一周内用AI写代码后自己改3个需求，观察是否愿意追 bug）
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 志愿清单 -->
+      <div class="rpanel" id="s18-vols">
+        <div class="rcard2">
+          <div class="rcard2-hd">
+            <span class="rcard2-title">VOLUNTEER LIST · 执行摘要（前8条 / 完整版含50条 + Excel附录）</span>
+            <span class="rcard2-badge">样本 A · #18</span>
+          </div>
+          <div class="rcard2-body" style="padding-top:0;">
+            <div style="display:flex;gap:12px;padding:18px 0 20px;border-bottom:1px solid var(--border2);flex-wrap:wrap;">
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;">
+                <span style="display:inline-block;width:10px;height:10px;background:#ff453a;border-radius:2px;"></span>冲 0 个
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;">
+                <span style="display:inline-block;width:10px;height:10px;background:#0071e3;border-radius:2px;"></span>稳 15 个
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;">
+                <span style="display:inline-block;width:10px;height:10px;background:#30d158;border-radius:2px;"></span>保 35 个
+              </div>
+              <div style="margin-left:auto;font-size:12.5px;color:var(--ink3);">院校 29 所 · 特殊项目 15 个</div>
+            </div>
+            <div style="overflow-x:auto;margin-top:4px;">
+              <table class="vt2">
+                <thead><tr><th>序</th><th>层次</th><th>学校</th><th>专业</th><th>录取概率</th><th>综合得分</th><th>标签</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:var(--ink3);font-size:12px;">01</td><td><span class="tbao">保</span></td><td style="font-weight:500;">北京工业大学</td><td style="font-size:12.5px;">电子信息工程（中外合作办学）</td><td><div class="prob-cell"><span class="prob-num ph">99.4%</span><div class="prob-bar"><div class="prob-fill" style="width:99.4%;background:#30d158;"></div></div></div></td><td style="font-weight:600;color:var(--gold)">240</td><td class="th">中外</td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">02</td><td><span class="tbao">保</span></td><td style="font-weight:500;">西南交通大学</td><td style="font-size:12.5px;">电子信息工程（中外合作办学）</td><td><div class="prob-cell"><span class="prob-num ph">96.9%</span><div class="prob-bar"><div class="prob-fill" style="width:96.9%;background:#30d158;"></div></div></div></td><td style="font-weight:600;color:var(--gold)">231</td><td class="th">中外</td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">03</td><td><span class="tbao">保</span></td><td style="font-weight:500;">西南交通大学</td><td style="font-size:12.5px;">安全工程（中外合作办学）</td><td><div class="prob-cell"><span class="prob-num ph">100.0%</span><div class="prob-bar"><div class="prob-fill" style="width:100%;background:#30d158;"></div></div></div></td><td style="font-weight:600;color:var(--gold)">226</td><td class="th">中外</td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">04</td><td><span class="twen">稳</span></td><td style="font-weight:500;">四川大学</td><td style="font-size:12.5px;">工业工程（中外合作办学）</td><td><div class="prob-cell"><span class="prob-num pm">89.7%</span><div class="prob-bar"><div class="prob-fill" style="width:89.7%;background:#0071e3;"></div></div></div></td><td style="font-weight:600;color:var(--gold)">218</td><td class="th">中外</td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">05</td><td><span class="tbao">保</span></td><td style="font-weight:500;">东北师范大学</td><td style="font-size:12.5px;">会计学（中外合作办学）</td><td><div class="prob-cell"><span class="prob-num ph">100.0%</span><div class="prob-bar"><div class="prob-fill" style="width:100%;background:#30d158;"></div></div></div></td><td style="font-weight:600;color:var(--gold)">215</td><td class="th">中外</td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">06</td><td><span class="tbao">保</span></td><td style="font-weight:500;">大连海事大学</td><td style="font-size:12.5px;">电子信息工程（中外合作办学）</td><td><div class="prob-cell"><span class="prob-num ph">99.9%</span><div class="prob-bar"><div class="prob-fill" style="width:99.9%;background:#30d158;"></div></div></div></td><td style="font-weight:600;color:var(--gold)">207</td><td class="th">中外</td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">07</td><td><span class="tbao">保</span></td><td style="font-weight:500;">重庆邮电大学</td><td style="font-size:12.5px;">软件工程（中外合作办学）</td><td><div class="prob-cell"><span class="prob-num ph">99.8%</span><div class="prob-bar"><div class="prob-fill" style="width:99.8%;background:#30d158;"></div></div></div></td><td style="font-weight:600;color:var(--gold)">207</td><td class="th">中外</td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">08</td><td><span class="tbao">保</span></td><td style="font-weight:500;">厦门大学</td><td style="font-size:12.5px;">软件工程（马来西亚分校）</td><td><div class="prob-cell"><span class="prob-num ph">99.3%</span><div class="prob-bar"><div class="prob-fill" style="width:99.3%;background:#30d158;"></div></div></div></td><td style="font-weight:600;color:var(--gold)">199</td><td class="th">境外</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="unlock-box" style="margin-top:16px;">完整版含 50 条候选摘要 · 前五志愿五维理由拆解 · 策略与风险提示 · Excel附录（全部细节字段）</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 志愿理由拆解 (blur teaser) -->
+      <div class="rpanel" id="s18-reason">
+        <div class="rcard2">
+          <div class="rcard2-hd">
+            <span class="rcard2-title">WHY THESE FIVE · 前五志愿理由拆解（节选·完整版含全部5条）</span>
+            <span class="rcard2-badge" style="background:var(--gold);color:#fff;">完整版专属</span>
+          </div>
+          <div class="rcard2-body">
+            <div class="blur-wrap">
+              <div class="blur-content">
+                <div class="rc2">
+                  <div class="rc2-hd">
+                    <div class="rc2-rank-school">
+                      <div class="rc2-num">志愿 1 · 保 · 99.4%</div>
+                      <div class="rc2-school">北京工业大学</div>
+                      <div class="rc2-major">电子信息工程（中外合作办学）</div>
+                    </div>
+                    <div class="rc2-meta">
+                      <div class="rc2-prob">99.4%</div>
+                      <div class="rc2-total">总分 240</div>
+                    </div>
+                  </div>
+                  <div class="rc2-body">
+                    <div>
+                      <div class="rc2-section-title">主要加分项</div>
+                      <div class="rc2-points">
+                        <div class="rc2-point"><div class="rc2-dot g"></div>保研：本校官方保研率为15%，而您若被录取将在所有考生中排前1%，个人实际保研率约22%，有较明确的保研争取空间</div>
+                        <div class="rc2-point"><div class="rc2-dot g"></div>薪资：毕业五年平均月薪 13,584 元，在全部46个专业中排名第2（前4.3%），符合您对毕业生平均薪酬的考量</div>
+                        <div class="rc2-point"><div class="rc2-dot g"></div>匹配：用户类型 SEI，专业类型 IRE，专业的研究型（I）特质与逻辑推理偏好有较强关联，兴趣适配</div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="rc2-section-title">需要核查/取舍</div>
+                      <div class="rc2-points">
+                        <div class="rc2-point"><div class="rc2-dot o"></div>考公：报录比约104:1，处于全量岗位后30%分位数，竞争压力较小，但您优先考虑体制外就业，此方面影响有限</div>
+                        <div class="rc2-point"><div class="rc2-dot o"></div>中外合作核查：需确认学费、外方课程占比、培养地点及转专业限制</div>
+                      </div>
+                      <div class="rc2-scores">
+                        <span class="rc2-score-chip">保研 79</span>
+                        <span class="rc2-score-chip">考公 86</span>
+                        <span class="rc2-score-chip">位置 78</span>
+                        <span class="rc2-score-chip">霍兰德 90</span>
+                        <span class="rc2-score-chip" style="background:var(--gold-bg);border-color:rgba(154,125,74,.25);color:var(--gold);">收入 94</span>
+                        <span class="rc2-score-chip">学科 71</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Teaser of more cards (blurred) -->
+                <div style="margin-top:12px;filter:blur(5px);pointer-events:none;user-select:none;opacity:0.6;">
+                  <div class="rc2" style="margin-bottom:10px;">
+                    <div class="rc2-hd">
+                      <div class="rc2-rank-school">
+                        <div class="rc2-num">志愿 2 · 保 · 96.9%</div>
+                        <div class="rc2-school">西南交通大学</div>
+                        <div class="rc2-major">电子信息工程（中外合作办学）</div>
+                      </div>
+                      <div class="rc2-meta"><div class="rc2-prob">96.9%</div><div class="rc2-total">总分 231</div></div>
+                    </div>
+                    <div class="rc2-body" style="min-height:80px;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="blur-overlay">
+                <div class="blur-lock">
+                  <div class="lock-icon">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="8" rx="2" stroke="var(--ink3)" stroke-width="1.2"/><path d="M5 7V5a3 3 0 016 0v2" stroke="var(--ink3)" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="lock-text">完整版包含前五志愿的全部理由拆解</div>
+                  <button class="lock-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">升级完整版 · 解锁全部分析</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /s18 -->
+
+    <!-- ══ SAMPLE 14 ══ -->
+    <div class="sdeck" id="s14">
+
+      <!-- 学生画像 -->
+      <div class="rpanel on" id="s14-profile">
+        <div class="rcard">
+          <div class="rcard-head">
+            <span class="rcard-label">STUDENT PROFILE · 学生画像与规划建议</span>
+            <span class="rcard-badge">样本 B · #14 · 报告全版</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+            <table class="ptable">
+              <tr><td>分数</td><td>660</td><td>选科</td><td>物理+化学+生物</td></tr>
+              <tr><td>霍兰德</td><td>RIE</td><td>高分维度</td><td>R8、I8、E7</td></tr>
+              <tr><td>推荐聚焦</td><td colspan="3">计算机软件与电子信息硬科技方向</td></tr>
+              <tr><td>组合结构</td><td>稳21 / 保20 / 冲9</td><td>特殊项目</td><td>16 个</td></tr>
+              <tr><td>读研倾向</td><td colspan="3">确定读研，但尚未明确具体院校或专业、硕博连读</td></tr>
+              <tr><td>城市偏好</td><td colspan="3">南方、北方、本省、离家较近、气候舒适、产业资源丰富</td></tr>
+              <tr><td>中外合作</td><td colspan="3">不接受</td></tr>
+              <tr><td>排斥方向</td><td colspan="3">历史学、农学、医学、艺术学</td></tr>
+            </table>
+            <div style="background:var(--fill1);border-radius:12px;padding:20px;border:1px solid var(--border2);">
+              <div class="pl">一句话画像</div>
+              <p class="pt">原始问卷显示学生偏好理学、工学、交叉学科，优势科目集中在数学、物理、化学；当前推荐聚焦计算机软件与电子信息硬科技方向，与高平台、硬科技和读研发展路径较一致。</p>
+              <div class="pl" style="margin-top:14px;">规划主线</div>
+              <p class="pt">问卷排序显示"我愿意去一流高校学一般专业"是重要取向，读研倾向较明确，因此建议先保留学科实力和平台优势，再用预算、地域、特殊培养项目做最后取舍。</p>
+              <div class="pl" style="margin-top:14px;">高层次判断</div>
+              <p class="pt">R8、I8、E7 较突出，和软件工程、网络空间安全、计算机科学与技术等方向较匹配。Top 候选集中在吉林大学 ×14、厦门大学 ×5、华东师范大学 ×4，说明系统倾向用高平台承接分数优势。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 决策图表 -->
+      <div class="rpanel" id="s14-charts">
+        <div class="rcard">
+          <div class="rcard-head">
+            <span class="rcard-label">DECISION CHARTS · 决策图表概览</span>
+            <span class="rcard-badge">样本 B · #14</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+            <div>
+              <div class="cl">冲稳保比例</div>
+              <div class="csb">
+                <div class="csb-rush" style="width:18%"><span>冲 18%</span></div>
+                <div class="csb-stable" style="width:42%"><span>稳 42%</span></div>
+                <div class="csb-safe" style="width:40%"><span>保 40%</span></div>
+              </div>
+              <div class="csb-leg">
+                <div class="csb-li"><div class="csb-dot" style="background:#ff453a"></div>冲 9 / 18%</div>
+                <div class="csb-li"><div class="csb-dot" style="background:#0071e3"></div>稳 21 / 42%</div>
+                <div class="csb-li"><div class="csb-dot" style="background:#30d158"></div>保 20 / 40%</div>
+              </div>
+              <div class="chart-note mt16">组合中稳保合计41/50，冲刺9个。院校集中度最高：吉林大学 ×14（适合集中比较同校专业差异）。识别到16个特殊项目标签。</div>
+            </div>
+            <div>
+              <div class="cl" style="margin-bottom:14px;">推荐价值维度均衡度</div>
+              <div id="db14v2">
+                <div class="drow2"><span class="dlabel2">学科质量</span><div class="dtrack2"><div class="dfill2" data-w="83"></div></div><span class="dval2" style="color:var(--gold)">83</span></div>
+                <div class="drow2"><span class="dlabel2">保研潜力</span><div class="dtrack2"><div class="dfill2" data-w="85"></div></div><span class="dval2" style="color:var(--gold)">85</span></div>
+                <div class="drow2"><span class="dlabel2">城市匹配</span><div class="dtrack2"><div class="dfill2" data-w="74"></div></div><span class="dval2">74</span></div>
+                <div class="drow2"><span class="dlabel2">兴趣匹配</span><div class="dtrack2"><div class="dfill2" data-w="88"></div></div><span class="dval2" style="color:var(--gold)">88</span></div>
+                <div class="drow2"><span class="dlabel2">收入出口</span><div class="dtrack2"><div class="dfill2" data-w="93"></div></div><span class="dval2" style="color:var(--gold)">93</span></div>
+                <div class="drow2"><span class="dlabel2">录取把握</span><div class="dtrack2"><div class="dfill2" data-w="85"></div></div><span class="dval2">85</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 专业推荐 -->
+      <div class="rpanel" id="s14-major">
+        <div class="rcard">
+          <div class="rcard-head">
+            <span class="rcard-label">MAJOR DIRECTION · 推荐专业深读（免费版仅展示方向）</span>
+            <span class="rcard-badge">样本 B · #14</span>
+          </div>
+          <div class="mlist">
+            <div class="mrow mhd"><span>推荐方向</span><span style="text-align:right">综合得分</span><span style="text-align:right">霍兰德匹配</span><span>AI 暴露风险</span></div>
+            <div class="mrow">
+              <div><div class="mname">软件工程</div><div class="mdesc">应用面宽，就业强，需关注代码实践和项目经历 · AI暴露：低抗替代/高暴露</div></div>
+              <div class="mscore" style="color:var(--gold)">100.0</div><div class="mscore">94.5</div>
+              <div class="aib"><div class="aitrack"><div class="aifill" style="width:58%"></div></div><span class="ainum">58</span></div>
+            </div>
+            <div class="mrow">
+              <div><div class="mname">网络空间安全</div><div class="mdesc">安全方向壁垒高，适合长期深耕，岗位质量分化明显 · AI暴露：中等偏低</div></div>
+              <div class="mscore" style="color:var(--gold)">97.8</div><div class="mscore">100.0</div>
+              <div class="aib"><div class="aitrack"><div class="aifill" style="width:42%"></div></div><span class="ainum">42</span></div>
+            </div>
+            <div class="mrow">
+              <div><div class="mname">计算机科学与技术</div><div class="mdesc">基础方向通用性强，适合向AI、系统、数据方向分化 · AI暴露：低抗替代/高暴露</div></div>
+              <div class="mscore" style="color:var(--gold)">96.0</div><div class="mscore">94.5</div>
+              <div class="aib"><div class="aitrack"><div class="aifill" style="width:55%"></div></div><span class="ainum">55</span></div>
+            </div>
+          </div>
+          <div class="unlock-box">
+            <strong>完整版解锁：</strong> Top 3 专业完整深读（课程难度、就业路径、读研价值、AI替代分析），以及高中生三步自测行动（例网络空间安全：连续三天读网络/系统基础材料；若对底层机制有耐心，适配度更高）
+          </div>
+        </div>
+      </div>
+
+      <!-- 志愿清单 -->
+      <div class="rpanel" id="s14-vols">
+        <div class="rcard">
+          <div class="rcard-head">
+            <span class="rcard-label">EXECUTIVE SUMMARY · 执行摘要（前8条，完整版含50条）</span>
+            <span class="rcard-badge">样本 B · #14</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="vt">
+              <thead><tr><th>序</th><th>层次</th><th>学校</th><th>专业</th><th>概率</th><th>得分</th><th>提示</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td><span class="twen">稳</span></td><td>东北师范大学</td><td>物理学类（物理学师范、电子信息科学与技术、材料物理）</td><td class="pm">80.7%</td><td>2381</td><td class="th">师范</td></tr>
+                <tr><td>2</td><td><span class="tbao">保</span></td><td>陕西师范大学</td><td>计算机科学与技术（国家公费师范生）</td><td class="ph">100.0%</td><td>2366</td><td class="th">公费</td></tr>
+                <tr><td>3</td><td><span class="twen">稳</span></td><td>华东师范大学</td><td>教育技术学（智能教育）（师范类）</td><td class="pm">68.0%</td><td>2275</td><td class="th">师范</td></tr>
+                <tr><td>4</td><td><span class="tbao">保</span></td><td>厦门大学</td><td>软件工程（马来西亚分校）</td><td class="ph">99.9%</td><td>2111</td><td class="th">境外</td></tr>
+                <tr><td>5</td><td><span class="tbao">保</span></td><td>厦门大学</td><td>网络空间安全（马来西亚分校）</td><td class="ph">99.9%</td><td>2108</td><td class="th">境外</td></tr>
+                <tr><td>6</td><td><span class="tbao">保</span></td><td>厦门大学</td><td>人工智能（马来西亚分校）</td><td class="ph">99.8%</td><td>2099</td><td class="th">境外</td></tr>
+                <tr><td>7</td><td><span class="tbao">保</span></td><td>厦门大学</td><td>电子信息工程（马来西亚分校）</td><td class="ph">99.9%</td><td>2091</td><td class="th">境外</td></tr>
+                <tr><td>8</td><td><span class="tbao">保</span></td><td>厦门大学</td><td>计算机科学与技术（马来西亚分校）</td><td class="ph">99.8%</td><td>2084</td><td class="th">境外</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="unlock-box">完整版含50条候选摘要 + 前五志愿五维理由拆解 + 策略与风险提示 + Excel附录</div>
+        </div>
+      </div>
+
+      <!-- 志愿理由拆解 -->
+      <div class="rpanel" id="s14-reason">
+        <div class="rcard">
+          <div class="rcard-head">
+            <span class="rcard-label">WHY THESE FIVE · 前五志愿理由拆解（节选第3志愿）</span>
+            <span class="rcard-badge">样本 B · #14 · 完整版</span>
+          </div>
+          <div class="reason-card">
+            <div class="reason-head">
+              <div>
+                <div class="reason-rank">志愿 3</div>
+                <div class="reason-school">华东师范大学</div>
+                <div class="reason-major">教育技术学（智能教育）（师范类）</div>
+              </div>
+              <div style="text-align:right">
+                <div class="reason-tier twen-inline">稳</div>
+                <div class="reason-prob">68.0%</div>
+                <div class="reason-total">总分 2275</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;">
+              <div>
+                <div class="rl">主要加分项</div>
+                <ul class="reason-list">
+                  <li>保研：本校官方保研率35%，若录取将在所有考生中排前10%，个人实际保研率约50%，保研机会接近50%左右</li>
+                  <li>城市：学校位于上海市，属于南方城市，气候舒适且产业资源丰富，完全符合城市偏好要求</li>
+                  <li>学科：学科综合评分86，配合高保研率可强化学术深造空间</li>
+                </ul>
+              </div>
+              <div>
+                <div class="rl">需要核查/取舍</div>
+                <ul class="reason-list reason-warn">
+                  <li>薪资：毕业五年平均月薪7,728元，在全部46个专业中排名第45，收入相对较低，但注重学科实力可弥补</li>
+                  <li>匹配：用户类型 RIE，专业类型 SIA，两者不完全重合，但对教育技术的兴趣可能通过实践培养</li>
+                </ul>
+                <div class="score-row">
+                  <span>保研 91</span><span>考公 82</span><span>位置 91</span>
+                  <span>霍兰德 79</span><span>收入 90</span><span>学科 86</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="unlock-box">完整版包含前五志愿全部理由拆解，以及最终志愿策略页：核心推荐保留、重点沟通亮点、弹性备选方案</div>
+        </div>
+      </div>
+
+    </div><!-- /s14 -->
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec sec-w" id="pricing">
+  <div class="wrap">
+    <span class="eyebrow eyebrow-center">套餐选择</span>
+    <h2 class="ttl ttl-c">选择适合你的方案</h2>
+    <p class="sub sub-c mt12">从基础体验到全程陪伴，按需选择</p>
+
+    <div class="pg">
+      <!-- Free -->
+      <div class="pc">
+        <span class="pc-tier">FREE</span>
+        <div class="pc-name">免费体验版</div>
+        <div class="pc-price"><span class="pc-free">免费</span></div>
+        <div class="pc-note">零门槛，先感受产品</div>
+        <div class="pc-hr"></div>
+        <ul class="pcl">
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>志愿填报基础功能</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>免费预览版报告（4页）</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>推荐方向主线预览</li>
+        </ul>
+        <button class="pb pb-t">免费开始</button>
+      </div>
+
+      <!-- 400 -->
+      <div class="pc">
+        <span class="pc-tier">STANDARD</span>
+        <div class="pc-name">标准规划版</div>
+        <div class="pc-price"><span class="pc-curr">¥</span><span class="pc-num">400</span></div>
+        <div class="pc-note">完整志愿规划报告</div>
+        <div class="pc-hr"></div>
+        <ul class="pcl">
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>全套志愿规划报告（14页+）</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>50个候选志愿完整清单</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>前五志愿理由拆解</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>AI替代风险评估</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Excel完整候选附录</li>
+        </ul>
+        <button class="pb pb-g">立即购买</button>
+      </div>
+
+      <!-- 900 HIGHLIGHT -->
+      <div class="pc hl">
+        <div class="pc-tag">最受欢迎</div>
+        <span class="pc-tier">PRO</span>
+        <div class="pc-name">专家解读版</div>
+        <div class="pc-price"><span class="pc-curr">¥</span><span class="pc-num">900</span></div>
+        <div class="pc-note">报告 + 40分钟专家1对1解读</div>
+        <div class="pc-hr"></div>
+        <ul class="pcl">
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="rgba(255,255,255,0.4)" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>标准版全部内容</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="rgba(255,255,255,0.4)" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>40分钟专家1对1视频解读</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="rgba(255,255,255,0.4)" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>个性化方案实时调整</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="rgba(255,255,255,0.4)" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>填报技巧深度指导</li>
+        </ul>
+        <button class="pb pb-w">立即购买</button>
+      </div>
+
+      <!-- 5000 -->
+      <div class="pc">
+        <span class="pc-tier">ELITE</span>
+        <div class="pc-name">大学陪伴计划</div>
+        <div class="pc-price"><span class="pc-curr">¥</span><span class="pc-num">5000</span></div>
+        <div class="pc-note">从高考到毕业，全程同行</div>
+        <div class="pc-hr"></div>
+        <ul class="pcl">
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>专家版全部内容</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>全程专家陪伴解读</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>各方向职业规划</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>简历修改与实习推荐</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>竞赛备赛全程指导</li>
+          <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>仅限 15 个名额</li>
+        </ul>
+        <button class="pb pb-g">预约名额</button>
+      </div>
+    </div>
+
+    <div class="ub" id="urgency">
+      <div>
+        <h3>限时优惠提醒</h3>
+        <p>大学陪伴计划仅限15名，前5名报名立减 <strong>¥2000</strong>；<br>分享朋友圈或100人以上群并评论产品，任意套餐立减 <strong>¥100</strong></p>
+      </div>
+      <div class="utags">
+        <span class="utag utag-r">名额极少 · 前5名立减 ¥2000</span>
+        <span class="utag utag-g">分享评论立减 ¥100</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap-sm">
+    <span class="eyebrow eyebrow-center">开始规划</span>
+    <h2 class="ttl ttl-c" style="color:white;">你的分数<br>值得<em>更精准的落地</em></h2>
+    <span class="sub">免费预览版可帮你判断推荐方向是否匹配，完整版提供可落地的填报策略</span>
+    <div class="btns">
+      <a href="#pricing" class="btn btn-g">查看套餐方案</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo"><em>慧</em>途研究院</div>
+  <div class="fcopy">© 2024 慧途研究院 · 专注高考志愿规划</div>
+</footer>
+
+<script>
+// ── State ──
+let curSample = '18';
+let curTab = 'profile';
+
+// ── Bar animation (both dfill and dfill2) ──
+function runBars(sampleId) {
+  const ids = { '18': 'db18v2', '14': 'db14v2' };
+  const container = document.getElementById(ids[sampleId]);
+  if (!container) return;
+  container.querySelectorAll('.dfill2').forEach((f, i) => {
+    setTimeout(() => f.classList.add('run'), i * 80);
+  });
+}
+
+// ── Reset bars ──
+function resetBars() {
+  document.querySelectorAll('.dfill2').forEach(f => {
+    f.classList.remove('run');
+    void f.offsetWidth; // force reflow
+  });
+}
+
+// ── Show correct panel ──
+function showPanel() {
+  document.querySelectorAll('.sdeck').forEach(d => d.classList.remove('on'));
+  document.getElementById('s' + curSample).classList.add('on');
+  document.querySelectorAll('#s' + curSample + ' .rpanel').forEach(p => p.classList.remove('on'));
+  const target = document.getElementById('s' + curSample + '-' + curTab);
+  if (target) target.classList.add('on');
+  if (curTab === 'charts') {
+    resetBars();
+    setTimeout(() => runBars(curSample), 100);
+  }
+}
+
+// ── Sample switcher (sw2) ──
+document.querySelectorAll('.sw2').forEach(btn => {
+  btn.addEventListener('click', () => {
+    curSample = btn.dataset.s;
+    document.querySelectorAll('.sw2').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    showPanel();
+  });
+});
+
+// ── Tab switcher ──
+document.querySelectorAll('.rtab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    curTab = tab.dataset.tab;
+    document.querySelectorAll('.rtab').forEach(t => t.classList.remove('on'));
+    tab.classList.add('on');
+    showPanel();
+  });
+});
+
+// ── Scroll reveal ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    setTimeout(() => el.classList.add('vis'), parseInt(el.dataset.d || 0));
+    io.unobserve(el);
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fi').forEach((el, i) => { el.dataset.d = (i % 3) * 80; io.observe(el); });
+document.querySelectorAll('.pc').forEach((el, i) => { el.dataset.d = i * 70; io.observe(el); });
+io.observe(document.getElementById('urgency'));
+
+// ── Auto-animate bars when charts tab scrolls into view ──
+const previewObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && curTab === 'charts') runBars(curSample);
+}, { threshold: 0.2 });
+previewObs.observe(document.getElementById('preview'));
+
+// ── Nav scroll ──
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').style.borderBottomColor =
+    window.scrollY > 30 ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.07)';
+}, { passive: true });
+</script>
+</body>
+</html>
