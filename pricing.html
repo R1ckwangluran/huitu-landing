@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>慧途研究院 · 套餐价格</title>
+<style>
+:root {
+  --ink: #1d1d1f; --ink2: #424245; --ink3: #6e6e73;
+  --fill1: #f5f5f7; --fill2: #e8e8ed; --white: #ffffff;
+  --gold: #9a7d4a; --gold2: #b89a5e; --gold-bg: #faf6ef;
+  --border: #d2d2d7; --border2: #e8e8ed;
+  --green: #1a7f37; --green-bg: #e3f9e5;
+  --red: #cc0000; --red-bg: #ffeef0;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--font); color:var(--ink); background:var(--white); -webkit-font-smoothing:antialiased; }
+
+/* NAV */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100; height:52px;
+  display:flex; align-items:center; justify-content:space-between; padding:0 48px;
+  background:rgba(255,255,255,0.85); backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.logo-mark { width:24px; height:24px; }
+.logo-cn { font-size:16px; font-weight:600; color:var(--ink); letter-spacing:0.04em; }
+.logo-cn em { font-style:normal; color:var(--gold); }
+.logo-sub { font-size:9px; color:var(--ink3); letter-spacing:0.22em; display:block; margin-top:1px; }
+.nav-back { font-size:13px; color:var(--ink3); text-decoration:none; display:flex; align-items:center; gap:6px; transition:color .2s; }
+.nav-back:hover { color:var(--ink); }
+
+/* HERO */
+.hero {
+  padding:120px 24px 72px; text-align:center;
+  background:linear-gradient(180deg, var(--fill1) 0%, var(--white) 100%);
+}
+.eyebrow {
+  display:block; font-size:11.5px; color:var(--gold); letter-spacing:0.2em;
+  font-weight:600; text-transform:uppercase; margin-bottom:16px;
+}
+.ttl {
+  font-size:clamp(28px,5vw,56px); font-weight:700; line-height:1.08;
+  letter-spacing:-0.025em; margin-bottom:16px;
+}
+.sub { font-size:17px; color:var(--ink3); line-height:1.65; max-width:480px; margin:0 auto; }
+
+/* PRICING GRID */
+.pricing-wrap { max-width:1100px; margin:0 auto; padding:0 24px 100px; }
+
+.pg {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:18px; margin-top:56px; align-items:start;
+}
+
+.pc {
+  border:1px solid var(--border2); border-radius:22px; padding:28px 24px;
+  background:var(--white); position:relative;
+  opacity:0; transform:translateY(20px);
+  transition:box-shadow .3s, transform .3s;
+}
+.pc.vis { opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease, box-shadow .3s; }
+.pc:hover { transform:translateY(-5px); box-shadow:0 20px 60px rgba(0,0,0,.09); }
+.pc.hl { background:var(--ink); border-color:var(--ink); }
+.pc.hl:hover { box-shadow:0 20px 60px rgba(0,0,0,.28); }
+
+.pc-tag {
+  position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+  background:var(--gold); color:#fff;
+  font-size:10px; font-weight:700; padding:5px 16px;
+  border-radius:0 0 10px 10px; letter-spacing:0.1em; white-space:nowrap;
+}
+.pc-tier { font-size:10px; font-weight:700; letter-spacing:0.18em; color:var(--gold); margin-bottom:12px; display:block; }
+.pc-name { font-size:18px; font-weight:600; }
+.pc.hl .pc-name { color:#fff; }
+
+.pc-price { margin:18px 0 4px; line-height:1; }
+.curr { font-size:17px; font-weight:400; color:var(--gold); vertical-align:8px; }
+.num { font-size:46px; font-weight:800; color:var(--gold); letter-spacing:-0.04em; }
+.free-txt { font-size:34px; font-weight:700; color:var(--ink3); }
+.pc.hl .curr, .pc.hl .num { color:#fff; }
+
+.pc-note { font-size:12.5px; color:var(--ink3); margin-bottom:20px; }
+.pc.hl .pc-note { color:rgba(255,255,255,.45); }
+
+.pc-hr { height:1px; background:var(--border2); margin:18px 0; }
+.pc.hl .pc-hr { background:rgba(255,255,255,.1); }
+
+.pcl { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+.pcl li { display:flex; align-items:flex-start; gap:9px; font-size:13.5px; color:var(--ink2); line-height:1.5; }
+.pc.hl .pcl li { color:rgba(255,255,255,.72); }
+.ck { flex-shrink:0; margin-top:1px; }
+
+/* Discount box embedded in card */
+.disc-box {
+  border-radius:12px; padding:14px 16px; margin-bottom:20px;
+  border:1px dashed rgba(154,125,74,.35);
+  background:var(--gold-bg);
+}
+.pc.hl .disc-box { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.15); }
+.disc-row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.disc-row:last-of-type { margin-bottom:0; }
+.disc-tag {
+  font-size:11px; font-weight:700; padding:3px 8px; border-radius:5px;
+  white-space:nowrap; flex-shrink:0;
+}
+.disc-tag.g { background:var(--green-bg); color:var(--green); }
+.disc-tag.r { background:var(--red-bg); color:var(--red); }
+.disc-tag.gold { background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#fff; }
+.disc-text { font-size:12.5px; color:var(--ink2); line-height:1.4; }
+.pc.hl .disc-text { color:rgba(255,255,255,.65); }
+.disc-note {
+  font-size:11px; color:var(--ink3); margin-top:8px; line-height:1.6;
+  padding-top:8px; border-top:1px solid rgba(154,125,74,.15);
+}
+.pc.hl .disc-note { color:rgba(255,255,255,.38); border-top-color:rgba(255,255,255,.08); }
+
+/* Urgency chip */
+.urgency-chip {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--red-bg); border:1px solid rgba(204,0,0,.2);
+  border-radius:8px; padding:6px 12px;
+  font-size:12px; color:var(--red); font-weight:600; margin-bottom:14px;
+}
+.urgency-dot { width:7px; height:7px; border-radius:50%; background:var(--red); animation:pulse 1.6s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
+
+/* Buttons */
+.pb {
+  width:100%; padding:12px; border-radius:12px;
+  font-size:14.5px; font-weight:600; cursor:pointer; border:none;
+  transition:transform .15s, opacity .2s; letter-spacing:0.01em;
+}
+.pb:hover { transform:scale(1.02); }
+.pb:active { transform:scale(0.98); }
+.pb-g { background:var(--gold); color:#fff; }
+.pb-w { background:#fff; color:var(--ink); }
+.pb-t { background:transparent; color:var(--ink3); border:1px solid var(--border2); }
+.pb-dk { background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.18); }
+
+/* Compare strip */
+.compare { max-width:1100px; margin:0 auto; padding:0 24px 80px; }
+.compare-title { font-size:22px; font-weight:700; margin-bottom:28px; }
+
+/* Compare table */
+.ct { width:100%; border-collapse:collapse; font-size:13px; }
+.ct th {
+  padding:13px 16px; text-align:center;
+  font-size:11.5px; font-weight:700; letter-spacing:0.06em;
+  color:var(--ink2); background:var(--fill1);
+  border-bottom:2px solid var(--border2);
+}
+.ct th:first-child { text-align:left; min-width:130px; }
+.ct td { padding:13px 16px; border-bottom:1px solid var(--border2); text-align:center; }
+.ct td.ct-label { text-align:left; font-weight:500; color:var(--ink2); background:var(--fill1); }
+.ct tr:last-child td { border-bottom:none; }
+.ct-yes { color:var(--green); font-weight:600; }
+.ct-no { color:var(--ink3); }
+.ct-hl { background:rgba(154,125,74,.05); }
+.th-hl { background:rgba(154,125,74,.1) !important; color:var(--gold) !important; }
+
+/* Price + share inline */
+.price-row-wrap { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:18px 0 4px; }
+.share-chip {
+  display:inline-flex; align-items:center; gap:5px;
+  background:linear-gradient(135deg,#1a7f37,#22a34a);
+  color:#fff;
+  font-size:12.5px; font-weight:800; padding:7px 13px;
+  border-radius:20px; white-space:nowrap;
+  box-shadow:0 3px 14px rgba(26,127,55,.35);
+  animation:share-pop 2.4s ease-in-out infinite;
+  letter-spacing:0.02em;
+}
+@keyframes share-pop {
+  0%,100%{transform:scale(1);box-shadow:0 3px 14px rgba(26,127,55,.35);}
+  50%{transform:scale(1.06);box-shadow:0 5px 20px rgba(26,127,55,.52);}
+}
+
+/* Success cases */
+.success-section {
+  max-width:1100px; margin:0 auto; padding:0 24px 80px;
+}
+.success-title { font-size:22px; font-weight:700; margin-bottom:8px; }
+.success-sub { font-size:14px; color:var(--ink3); margin-bottom:28px; line-height:1.6; }
+.success-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+}
+.success-card {
+  border:1px solid var(--border2); border-radius:18px; overflow:hidden;
+  background:var(--white);
+  opacity:0; transform:translateY(16px);
+  transition:box-shadow .3s, transform .3s;
+}
+.success-card.vis { opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease, box-shadow .3s; }
+.success-card:hover { transform:translateY(-4px); box-shadow:0 16px 48px rgba(0,0,0,.09); }
+.success-card-hd {
+  padding:20px 22px 14px;
+  background:linear-gradient(135deg, var(--gold-bg) 0%, #fff 100%);
+  border-bottom:1px solid var(--border2);
+  display:flex; align-items:center; gap:14px;
+}
+.success-avatar {
+  width:44px; height:44px; border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; font-weight:700; color:#fff; flex-shrink:0;
+}
+.success-meta { }
+.success-name { font-size:14px; font-weight:600; color:var(--ink); }
+.success-school { font-size:12px; color:var(--ink3); margin-top:2px; }
+.success-badge {
+  margin-left:auto; flex-shrink:0;
+  font-size:10px; font-weight:700; padding:4px 10px;
+  border-radius:6px; background:var(--green-bg); color:var(--green);
+  letter-spacing:0.06em;
+}
+.success-card-body { padding:18px 22px; }
+.success-result {
+  font-size:15px; font-weight:600; color:var(--ink); line-height:1.5;
+  margin-bottom:12px;
+}
+.success-result em { font-style:normal; color:var(--gold); }
+.success-desc { font-size:13px; color:var(--ink3); line-height:1.7; }
+
+@media (max-width:760px) {
+  .success-grid { grid-template-columns:1fr; }
+}
+
+/* Footer */
+footer {
+  background:var(--ink); padding:32px 48px;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+}
+.flogo { font-size:14px; color:rgba(255,255,255,.75); font-weight:500; }
+.flogo em { font-style:normal; color:var(--gold2); }
+.fcopy { font-size:11.5px; color:rgba(255,255,255,.28); }
+
+/* Responsive */
+@media (max-width:900px) {
+  nav { padding:0 20px; }
+  .pg { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:560px) {
+  .pg { grid-template-columns:1fr; }
+  footer { padding:24px 20px; }
+}
+
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--fill1); }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <svg class="logo-mark" viewBox="0 0 26 26" fill="none">
+      <circle cx="13" cy="13" r="12" stroke="#9a7d4a" stroke-width="1.2"/>
+      <path d="M13 4.5L15.4 13L13 11.2L10.6 13Z" fill="#9a7d4a"/>
+      <path d="M13 21.5L10.6 13L13 14.8L15.4 13Z" fill="#9a7d4a" opacity="0.35"/>
+      <circle cx="13" cy="13" r="1.4" fill="#9a7d4a"/>
+    </svg>
+    <div>
+      <div class="logo-cn"><em>慧</em>途</div>
+      <span class="logo-sub">研究院</span>
+    </div>
+  </a>
+  <a href="report-showcase.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12l-4-4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    查看报告样本
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="eyebrow">套餐选择</span>
+  <h1 class="ttl">选择适合你的方案</h1>
+  <p class="sub">从基础体验到全程陪伴，按需选择。所有套餐均可享受分享优惠。</p>
+</div>
+
+<!-- PRICING -->
+<div class="pricing-wrap">
+  <div class="pg">
+
+    <!-- FREE -->
+    <div class="pc">
+      <span class="pc-tier">FREE</span>
+      <div class="pc-name">免费体验版</div>
+      <div class="pc-price"><span class="free-txt">免费</span></div>
+      <div class="pc-note">零门槛，先感受产品价值</div>
+      <div class="pc-hr"></div>
+      <ul class="pcl">
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>志愿填报基础功能</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>免费预览版报告（4页）</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>推荐方向主线预览</li>
+      </ul>
+      <button class="pb pb-t">免费开始</button>
+    </div>
+
+    <!-- 400 -->
+    <div class="pc">
+      <span class="pc-tier">STANDARD</span>
+      <div class="pc-name">标准规划版</div>
+      <div class="price-row-wrap">
+        <div class="pc-price" style="margin:0;"><span class="curr">¥</span><span class="num">400</span></div>
+        <span class="share-chip">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="13" cy="3" r="2" stroke="white" stroke-width="1.4"/><circle cx="13" cy="13" r="2" stroke="white" stroke-width="1.4"/><circle cx="3" cy="8" r="2" stroke="white" stroke-width="1.4"/><path d="M5 7l6-3.5M5 9l6 3.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+          分享立减 ¥100
+        </span>
+      </div>
+      <div class="pc-note">全套志愿规划报告</div>
+      <div class="pc-hr"></div>
+      <ul class="pcl">
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>全套志愿规划报告（14页+）</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>50个候选志愿完整清单</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>前五志愿理由拆解</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>AI替代风险评估</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>含 Excel 完整候选附录</li>
+      </ul>
+      <p class="disc-note" style="margin-bottom:16px;">* 分享本产品至朋友圈，或转发至100人以上的群并发表评论，截图给客服即可享受</p>
+      <button class="pb pb-g">立即购买</button>
+    </div>
+
+    <!-- 900 HIGHLIGHT -->
+    <div class="pc hl">
+      <div class="pc-tag">最受欢迎</div>
+      <span class="pc-tier">PRO</span>
+      <div class="pc-name">专家解读版</div>
+      <div class="price-row-wrap">
+        <div class="pc-price" style="margin:0;"><span class="curr">¥</span><span class="num">900</span></div>
+        <span class="share-chip">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="13" cy="3" r="2" stroke="white" stroke-width="1.4"/><circle cx="13" cy="13" r="2" stroke="white" stroke-width="1.4"/><circle cx="3" cy="8" r="2" stroke="white" stroke-width="1.4"/><path d="M5 7l6-3.5M5 9l6 3.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+          分享立减 ¥100
+        </span>
+      </div>
+      <div class="pc-note">报告 + 40分钟专家1对1解读</div>
+      <div class="pc-hr"></div>
+      <ul class="pcl">
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold2)"><circle cx="8" cy="8" r="7.3" stroke="rgba(255,255,255,0.35)" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>标准版全部内容</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold2)"><circle cx="8" cy="8" r="7.3" stroke="rgba(255,255,255,0.35)" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>40分钟专家1对1视频解读</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold2)"><circle cx="8" cy="8" r="7.3" stroke="rgba(255,255,255,0.35)" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>个性化方案实时调整</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold2)"><circle cx="8" cy="8" r="7.3" stroke="rgba(255,255,255,0.35)" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>填报技巧深度指导</li>
+      </ul>
+      <div class="disc-box">
+        <div class="disc-row">
+          <span class="disc-tag gold">分享立减</span>
+          <span class="disc-text" style="font-weight:700;color:#fff;">¥100 优惠</span>
+        </div>
+        <div class="disc-note">* 分享朋友圈或100人以上群并评论，截图给客服即可享受</div>
+      </div>
+      <button class="pb pb-w">立即购买</button>
+    </div>
+
+    <!-- 5000 ELITE -->
+    <div class="pc">
+      <span class="pc-tier">ELITE</span>
+      <div class="pc-name">大学陪伴计划</div>
+      <div class="pc-price"><span class="curr">¥</span><span class="num">5000</span></div>
+      <div class="pc-note">从高考到毕业，全程同行</div>
+      <div class="pc-hr"></div>
+      <div class="urgency-chip">
+        <span class="urgency-dot"></span>前5名立减 ¥2000
+      </div>
+      <ul class="pcl">
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>专家版全部内容</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>全程专家陪伴解读</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>各方向职业规划</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>简历修改与实习推荐</li>
+        <li><svg class="ck" width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gold)"><circle cx="8" cy="8" r="7.3" stroke="currentColor" stroke-width="1"/><path d="M5 8l2.2 2.2 3.8-4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>竞赛备赛全程指导</li>
+      </ul>
+      <div class="disc-box">
+        <div class="disc-row">
+          <span class="disc-tag g">分享立减</span>
+          <span class="disc-text" style="font-weight:700;color:var(--green);">额外立减 ¥100</span>
+        </div>
+        <div class="disc-note">* 两项优惠可叠加。分享朋友圈或100人以上群并评论，截图给客服即可享受。</div>
+      </div>
+      <button class="pb pb-g">预约名额</button>
+    </div>
+
+  </div><!-- /pg -->
+</div><!-- /pricing-wrap -->
+
+<!-- SUCCESS CASES (immediately after 大学陪伴计划 card section) -->
+<div class="success-section">
+  <h2 class="success-title">大学陪跑计划 · 成功案例</h2>
+  <p class="success-sub">以下均为真实指导案例，陪你从志愿到毕业，每一步都有专业支撑</p>
+  <div class="success-grid">
+
+    <div class="success-card">
+      <div class="success-card-hd">
+        <div class="success-avatar">王</div>
+        <div class="success-meta">
+          <div class="success-name">王同学</div>
+          <div class="success-school">哈尔滨工业大学</div>
+        </div>
+        <div class="success-badge">竞赛获奖</div>
+      </div>
+      <div class="success-card-body">
+        <div class="success-result">全国大学生数学建模竞赛<em>全国二等奖</em></div>
+        <div class="success-desc">在慧途研究院导师全程陪跑下，成功参加全国大学生数学建模竞赛，最终斩获全国二等奖。从组队策略、建模思路到论文写作，导师全程提供专业指导。</div>
+      </div>
+    </div>
+
+    <div class="success-card">
+      <div class="success-card-hd">
+        <div class="success-avatar">张</div>
+        <div class="success-meta">
+          <div class="success-name">张同学</div>
+          <div class="success-school">中央民族大学</div>
+        </div>
+        <div class="success-badge">考研上岸</div>
+      </div>
+      <div class="success-card-body">
+        <div class="success-result">考研面试<em>全场第一名</em></div>
+        <div class="success-desc">在慧途研究院导师的专项面试辅导下，成功备战考研复试，凭借扎实的专业知识和出色的面试表现，最终荣获面试第一名的优异成绩，顺利上岸。</div>
+      </div>
+    </div>
+
+    <div class="success-card">
+      <div class="success-card-hd">
+        <div class="success-avatar">张</div>
+        <div class="success-meta">
+          <div class="success-name">张同学</div>
+          <div class="success-school">对外经济贸易大学</div>
+        </div>
+        <div class="success-badge">高薪就业</div>
+      </div>
+      <div class="success-card-body">
+        <div class="success-result">京东算法工程师<em>年薪 40W</em> 校招 Offer</div>
+        <div class="success-desc">在慧途研究院导师的算法面试专项辅导和求职规划支持下，成功斩获京东算法工程师校招 Offer，年薪达40万，实现从名校到大厂的精准落地。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMPARE TABLE -->
+<div class="compare">
+  <h2 class="compare-title" style="margin-top:60px;">各套餐对比</h2>
+  <div style="overflow-x:auto; border:1px solid var(--border2); border-radius:16px; overflow:hidden;">
+    <table class="ct">
+      <thead>
+        <tr>
+          <th style="text-align:left;min-width:130px;">功能 / 套餐</th>
+          <th>免费版</th>
+          <th>¥400 标准</th>
+          <th class="th-hl">¥900 专家</th>
+          <th>¥5000 陪伴</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ct-label">志愿规划报告</td>
+          <td class="ct-yes">预览版</td>
+          <td class="ct-yes">完整版</td>
+          <td class="ct-yes ct-hl">完整版</td>
+          <td class="ct-yes">完整版</td>
+        </tr>
+        <tr>
+          <td class="ct-label">候选志愿数量</td>
+          <td class="ct-no">—</td>
+          <td class="ct-yes">50 个</td>
+          <td class="ct-yes ct-hl">50 个</td>
+          <td class="ct-yes">50 个</td>
+        </tr>
+        <tr>
+          <td class="ct-label">AI替代风险评估</td>
+          <td class="ct-no">—</td>
+          <td class="ct-yes">✓</td>
+          <td class="ct-yes ct-hl">✓</td>
+          <td class="ct-yes">✓</td>
+        </tr>
+        <tr>
+          <td class="ct-label">志愿理由拆解</td>
+          <td class="ct-no">—</td>
+          <td class="ct-yes">前5条</td>
+          <td class="ct-yes ct-hl">前5条</td>
+          <td class="ct-yes">前5条</td>
+        </tr>
+        <tr>
+          <td class="ct-label">专家1对1解读</td>
+          <td class="ct-no">—</td>
+          <td class="ct-no">—</td>
+          <td class="ct-yes ct-hl" style="color:var(--gold);font-weight:700;">40分钟</td>
+          <td class="ct-yes" style="color:var(--gold);font-weight:700;">全程</td>
+        </tr>
+        <tr>
+          <td class="ct-label">大学职业规划</td>
+          <td class="ct-no">—</td>
+          <td class="ct-no">—</td>
+          <td class="ct-no ct-hl">—</td>
+          <td class="ct-yes">✓</td>
+        </tr>
+        <tr>
+          <td class="ct-label">简历修改 &amp; 实习推荐</td>
+          <td class="ct-no">—</td>
+          <td class="ct-no">—</td>
+          <td class="ct-no ct-hl">—</td>
+          <td class="ct-yes">✓</td>
+        </tr>
+        <tr>
+          <td class="ct-label">Excel 附录</td>
+          <td class="ct-no">—</td>
+          <td class="ct-yes">✓</td>
+          <td class="ct-yes ct-hl">✓</td>
+          <td class="ct-yes">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:16px;font-size:12.5px;color:var(--ink3);line-height:1.7;">
+    * 分享朋友圈或100人以上的群并评论产品，截图给客服，任意付费套餐立减 ¥100。大学陪伴计划前5名报名另享立减 ¥2000，两项优惠可叠加。
+  </p>
+</div>
+
+<footer>
+  <div class="flogo"><em>慧</em>途研究院</div>
+  <div class="fcopy">© 2024 慧途研究院 · 专注高考志愿规划</div>
+</footer>
+
+<script>
+const io = new IntersectionObserver(e => {
+  e.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    setTimeout(() => el.classList.add('vis'), parseInt(el.dataset.d || 0));
+    io.unobserve(el);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.pc').forEach((el, i) => {
+  el.dataset.d = i * 80;
+  io.observe(el);
+});
+document.querySelectorAll('.success-card').forEach((el, i) => {
+  el.dataset.d = i * 100;
+  io.observe(el);
+});
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.borderBottomColor =
+    window.scrollY > 30 ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.07)';
+}, { passive: true });
+</script>
+</body>
+</html>

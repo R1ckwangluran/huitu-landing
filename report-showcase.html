@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>慧途研究院 · 报告解读</title>
+<style>
+:root {
+  --ink:#1d1d1f; --ink2:#424245; --ink3:#6e6e73;
+  --fill1:#f5f5f7; --fill2:#e8e8ed; --white:#ffffff;
+  --gold:#9a7d4a; --gold2:#b89a5e; --gold-bg:#faf6ef;
+  --border:#d2d2d7; --border2:#e8e8ed;
+  --green:#1a7f37; --green-bg:#e3f9e5;
+  --red:#cc0000;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:52px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 48px;
+  background:rgba(255,255,255,0.88);backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(0,0,0,0.07);transition:border-color .3s;
+}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-mark{width:24px;height:24px;}
+.logo-cn{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:0.04em;}
+.logo-cn em{font-style:normal;color:var(--gold);}
+.logo-sub{font-size:9px;color:var(--ink3);letter-spacing:0.22em;display:block;margin-top:1px;}
+.nav-cta{
+  font-size:13px;font-weight:600;color:var(--white);background:var(--gold);
+  border:none;padding:8px 20px;border-radius:18px;cursor:pointer;
+  transition:background .2s,transform .15s;
+}
+.nav-cta:hover{background:var(--gold2);transform:translateY(-1px);}
+
+/* HERO */
+.hero{
+  min-height:100svh;background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:96px 24px 80px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 40%,rgba(154,125,74,.1),transparent 70%);
+  pointer-events:none;
+}
+.hero-ey{font-size:12px;color:var(--gold2);letter-spacing:0.22em;font-weight:500;text-transform:uppercase;margin-bottom:26px;opacity:0;animation:au .8s .05s ease both;}
+.hero h1{font-size:clamp(36px,6vw,76px);font-weight:800;line-height:1.06;letter-spacing:-0.028em;color:#fff;margin-bottom:22px;opacity:0;animation:au .8s .15s ease both;}
+.hero h1 em{font-style:normal;background:linear-gradient(125deg,#c9a84c,#e8c96a,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:clamp(15px,1.8vw,19px);color:rgba(255,255,255,.54);line-height:1.68;max-width:540px;margin-bottom:44px;opacity:0;animation:au .8s .25s ease both;}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;animation:au .8s .35s ease both;}
+.btn{display:inline-block;padding:13px 30px;border-radius:28px;font-size:15px;font-weight:600;cursor:pointer;border:none;letter-spacing:0.01em;transition:transform .2s,box-shadow .2s;}
+.btn:hover{transform:translateY(-2px);}
+.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;}
+.btn-g:hover{box-shadow:0 12px 40px rgba(154,125,74,.38);}
+.btn-o{background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.18);}
+.btn-o:hover{background:rgba(255,255,255,.15);}
+@keyframes au{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTIONS */
+.sec{padding:88px 24px;}
+.sec-w{background:var(--white);}
+.sec-g{background:var(--fill1);}
+.sec-d{background:var(--ink);}
+.wrap{max-width:1080px;margin:0 auto;}
+.wrap-sm{max-width:720px;margin:0 auto;}
+
+.eyebrow{display:block;font-size:11px;color:var(--gold);letter-spacing:0.2em;font-weight:600;text-transform:uppercase;margin-bottom:14px;}
+.ttl{font-size:clamp(26px,4vw,50px);font-weight:800;line-height:1.1;letter-spacing:-0.022em;margin-bottom:14px;}
+.sub{font-size:17px;color:var(--ink3);line-height:1.65;}
+
+/* VALUE STRIP */
+.vstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border2);border:1px solid var(--border2);border-radius:16px;overflow:hidden;margin-top:48px;}
+.vs{background:var(--white);padding:28px 26px;transition:background .2s;}
+.vs:hover{background:var(--gold-bg);}
+.vs-num{font-size:38px;font-weight:800;color:var(--gold);letter-spacing:-0.04em;line-height:1;margin-bottom:6px;}
+.vs-title{font-size:15px;font-weight:700;margin-bottom:6px;}
+.vs-desc{font-size:13px;color:var(--ink3);line-height:1.65;}
+
+/* SECTION STEPS */
+.step-nav{
+  display:flex;gap:0;overflow-x:auto;
+  border-bottom:1px solid var(--border2);margin-bottom:48px;
+}
+.snav{
+  padding:12px 26px;font-size:13.5px;font-weight:500;color:var(--ink3);
+  cursor:pointer;border:none;background:none;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  white-space:nowrap;transition:color .2s,border-color .2s;
+}
+.snav:hover{color:var(--ink);}
+.snav.on{color:var(--gold);border-bottom-color:var(--gold);}
+.spanel{display:none;}
+.spanel.on{display:block;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* REPORT CARD */
+.rc{background:var(--white);border:1px solid var(--border2);border-radius:18px;overflow:hidden;}
+.rc-hd{display:flex;align-items:center;justify-content:space-between;padding:18px 26px;background:var(--fill1);border-bottom:1px solid var(--border2);flex-wrap:wrap;gap:8px;}
+.rc-title{font-size:10.5px;color:var(--ink3);letter-spacing:0.14em;font-weight:600;}
+.rc-badge{font-size:10.5px;background:var(--gold-bg);color:var(--gold);padding:4px 12px;border-radius:6px;font-weight:600;letter-spacing:0.06em;}
+.rc-body{padding:28px;}
+
+/* STAT BOXES */
+.sboxes{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.sbox{background:var(--fill1);border-radius:10px;padding:14px 16px;border:1px solid var(--border2);}
+.sbox-num{font-size:26px;font-weight:800;color:var(--gold);letter-spacing:-0.03em;line-height:1;}
+.sbox-lbl{font-size:11px;color:var(--ink3);margin-top:4px;letter-spacing:0.06em;}
+
+/* TWO-COL */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.ptable{width:100%;border-collapse:collapse;font-size:13px;}
+.ptable td{padding:10px 0;border-bottom:1px solid var(--border2);vertical-align:top;}
+.ptable td:nth-child(odd){color:var(--ink3);width:90px;}
+.ptable td:nth-child(even){font-weight:500;padding-right:16px;}
+.ptable tr:last-child td{border-bottom:none;}
+.highlight-box{background:var(--fill1);border-radius:12px;padding:20px;border:1px solid var(--border2);}
+.pl{font-size:10px;color:var(--ink3);letter-spacing:0.14em;font-weight:600;margin-bottom:8px;}
+.pt{font-size:13px;line-height:1.72;color:var(--ink2);}
+
+/* DIMENSION BARS */
+.dbars{display:flex;flex-direction:column;gap:0;}
+.drow{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid var(--border2);}
+.drow:last-child{border-bottom:none;}
+.dlabel{font-size:13px;color:var(--ink2);min-width:64px;font-weight:500;}
+.dtrack{flex:1;height:6px;background:var(--fill2);border-radius:3px;overflow:hidden;}
+.dfill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));transform-origin:left;transform:scaleX(0);transition:transform 0.9s cubic-bezier(.4,0,.2,1);}
+.dfill.run{transform:scaleX(1);}
+.dval{font-size:14px;font-weight:700;color:var(--ink);min-width:28px;text-align:right;}
+
+/* CSB BAR */
+.csb{height:48px;border-radius:10px;overflow:hidden;display:flex;margin:16px 0;}
+.csb-rush{background:#ff453a;display:flex;align-items:center;justify-content:center;}
+.csb-stable{background:#0071e3;display:flex;align-items:center;justify-content:center;}
+.csb-safe{background:#30d158;display:flex;align-items:center;justify-content:center;}
+.csb span{font-size:12px;font-weight:700;color:#fff;padding:0 6px;}
+.csb-leg{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;}
+.csb-li{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);}
+.csb-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+
+/* MAJOR LIST */
+.mlist{display:flex;flex-direction:column;gap:1px;background:var(--border2);border-radius:12px;overflow:hidden;margin-bottom:16px;}
+.mrow{display:grid;grid-template-columns:1fr 88px 100px 120px;gap:16px;align-items:center;background:var(--white);padding:18px 22px;}
+.mrow.mhd{background:var(--fill1);}
+.mrow.mhd span{font-size:10.5px;color:var(--ink3);letter-spacing:0.1em;font-weight:600;}
+.mname{font-size:14px;font-weight:600;}
+.mdesc{font-size:12px;color:var(--ink3);margin-top:3px;line-height:1.5;}
+.mscore{font-size:14px;font-weight:700;text-align:right;}
+.ai-chip{
+  display:flex;flex-direction:column;align-items:center;
+  padding:8px 12px;border-radius:10px;
+  background:#fff8f0;border:1px solid #ffd0a0;
+}
+.ai-chip-num{font-size:17px;font-weight:800;color:#c05000;}
+.ai-chip-lbl{font-size:9px;color:var(--ink3);letter-spacing:0.08em;font-weight:600;margin-top:2px;}
+.ai-chip.low{background:#fff3f3;border-color:#ffb0b0;}
+.ai-chip.low .ai-chip-num{color:#c00000;}
+
+/* VOL TABLE */
+.vt{width:100%;border-collapse:collapse;font-size:13px;}
+.vt th{padding:10px 14px;text-align:left;font-size:10px;color:var(--ink3);letter-spacing:0.1em;font-weight:600;border-bottom:1px solid var(--border2);background:var(--fill1);}
+.vt td{padding:13px 14px;border-bottom:1px solid var(--border2);}
+.vt tr:hover td{background:var(--fill1);}
+.vt tr:last-child td{border-bottom:none;}
+.tbao{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:700;background:var(--green-bg);color:var(--green);}
+.twen{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:700;background:#e1f0ff;color:#0058b8;}
+.tchong{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:700;background:#ffeef0;color:var(--red);}
+.ph{color:var(--green);font-weight:700;}
+.pm{color:#0058b8;font-weight:700;}
+.pb-row{display:flex;flex-direction:column;gap:4px;}
+.pb-bar{height:3px;border-radius:2px;background:var(--fill2);overflow:hidden;width:56px;}
+.pb-fill{height:100%;border-radius:2px;}
+
+/* REASON CARD */
+.reason-full{border:1px solid var(--border2);border-radius:14px;overflow:hidden;margin-bottom:16px;}
+.reason-hd{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  padding:18px 22px;background:var(--fill1);border-bottom:1px solid var(--border2);flex-wrap:wrap;gap:12px;
+}
+.reason-rank{font-size:10px;color:var(--ink3);letter-spacing:0.14em;font-weight:600;margin-bottom:4px;}
+.reason-school{font-size:17px;font-weight:800;}
+.reason-major{font-size:12.5px;color:var(--ink3);margin-top:3px;}
+.reason-prob{font-size:30px;font-weight:800;color:var(--gold);letter-spacing:-0.03em;line-height:1;}
+.reason-total{font-size:11px;color:var(--ink3);margin-top:3px;}
+.reason-body{padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.rsec-title{font-size:10px;color:var(--ink3);letter-spacing:0.14em;font-weight:600;margin-bottom:12px;}
+.rpoints{display:flex;flex-direction:column;gap:10px;}
+.rpoint{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink2);line-height:1.65;}
+.rdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.rdot.g{background:var(--gold);}
+.rdot.o{background:#ff9f0a;}
+.scores{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border2);}
+.score-chip{font-size:11.5px;padding:4px 10px;border-radius:6px;background:var(--fill1);border:1px solid var(--border2);color:var(--ink2);font-weight:500;}
+.score-chip.hi{background:var(--gold-bg);border-color:rgba(154,125,74,.25);color:var(--gold);}
+
+/* BLUR OVERLAY */
+.blur-wrap{position:relative;overflow:hidden;border-radius:14px;}
+.blur-content{}
+.blur-overlay{
+  position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:linear-gradient(to bottom,transparent,rgba(245,245,247,.97) 55%);
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  padding-bottom:28px;z-index:10;
+}
+.lock-box{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.lock-icon{width:38px;height:38px;border-radius:50%;background:var(--white);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+.lock-txt{font-size:13px;color:var(--ink2);font-weight:500;}
+.lock-btn{background:var(--gold);color:#fff;border:none;padding:11px 28px;border-radius:22px;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s,transform .15s;}
+.lock-btn:hover{background:var(--gold2);transform:translateY(-1px);}
+
+/* STRATEGY FULL BLUR */
+.strategy-blur{
+  border:1px solid var(--border2);border-radius:14px;overflow:hidden;
+  position:relative;
+}
+.strategy-content{padding:28px;filter:blur(4px);pointer-events:none;user-select:none;opacity:0.5;}
+.strategy-overlay{
+  position:absolute;inset:0;
+  background:rgba(245,245,247,.7);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+}
+
+/* Report gallery */
+.rgallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;}
+.rg-item{border:1px solid var(--border2);border-radius:12px;overflow:hidden;background:var(--white);transition:box-shadow .2s,transform .2s;}
+.rg-item:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.09);}
+.rg-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--fill1);}
+.rg-label{padding:10px 14px;font-size:11px;font-weight:600;color:var(--ink3);letter-spacing:0.1em;background:var(--fill1);border-top:1px solid var(--border2);}
+@media(max-width:700px){.rgallery{grid-template-columns:1fr 1fr;}}
+
+/* INFO BOX */
+.info-box{background:var(--fill1);border:1px solid var(--border2);border-radius:12px;padding:18px 20px;margin-top:16px;font-size:13px;color:var(--ink3);line-height:1.7;}
+.info-box strong{color:var(--ink);}
+
+/* CTA SECTION */
+.cta-sec{background:var(--ink);text-align:center;padding:100px 24px;}
+.cta-sec .ttl{color:#fff;margin-bottom:16px;}
+.cta-sec em{font-style:normal;color:var(--gold2);}
+.cta-sec .sub{color:rgba(255,255,255,.45);margin:0 auto 40px;max-width:460px;}
+
+/* FADE IN */
+.fade-in{opacity:0;transform:translateY(18px);}
+.fade-in.vis{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 20px;}
+  .two{grid-template-columns:1fr;}
+  .vstrip{grid-template-columns:1fr;}
+  .mrow{grid-template-columns:1fr 80px 90px;}
+  .mrow>*:last-child{display:none;}
+  .sboxes{grid-template-columns:repeat(2,1fr);}
+  .reason-body{grid-template-columns:1fr;}
+  .diff-table{font-size:12px;}
+}
+@media(max-width:560px){
+  .rc-body{padding:18px;}
+  .two{gap:16px;}
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--fill1);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">
+    <svg class="logo-mark" viewBox="0 0 26 26" fill="none">
+      <circle cx="13" cy="13" r="12" stroke="#9a7d4a" stroke-width="1.2"/>
+      <path d="M13 4.5L15.4 13L13 11.2L10.6 13Z" fill="#9a7d4a"/>
+      <path d="M13 21.5L10.6 13L13 14.8L15.4 13Z" fill="#9a7d4a" opacity="0.35"/>
+      <circle cx="13" cy="13" r="1.4" fill="#9a7d4a"/>
+    </svg>
+    <div>
+      <div class="logo-cn"><em>慧</em>途</div>
+      <span class="logo-sub">研究院</span>
+    </div>
+  </a>
+  <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">预约免费咨询</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-ey">慧途研究院 · 产品解读</p>
+  <h1>这份报告<br>帮你把<em>50个志愿都想清楚</em></h1>
+  <p class="hero-sub">不是给你一张清单，而是告诉你每一个志愿为什么上、为什么不上。以下是真实报告的完整展示。</p>
+  <div class="btns">
+    <a href="#walkthrough" class="btn btn-g">查看报告内容</a>
+  </div>
+</section>
+
+<!-- VALUE STRIP -->
+<section class="sec sec-w">
+  <div class="wrap">
+    <span class="eyebrow">核心差异</span>
+    <h2 class="ttl">这份报告，和别人不同在哪里</h2>
+    <p class="sub" style="max-width:500px;">三个市面上罕见的分析维度，让每一个推荐都有据可查</p>
+    <div class="vstrip">
+      <div class="vs fade-in">
+        <div class="vs-num">霍兰德</div>
+        <div class="vs-title">兴趣类型精准匹配</div>
+        <div class="vs-desc">用霍兰德职业兴趣理论量化学生画像（RIE / SEI 等），每个专业推荐都附兴趣匹配评分。选错专业不是分数不够，而是画像不对应</div>
+      </div>
+      <div class="vs fade-in">
+        <div class="vs-num">AI 替</div>
+        <div class="vs-title">每个专业都有AI暴露评分</div>
+        <div class="vs-desc">对每个推荐专业评估 AI 替代风险（0~100分），帮你在填报时考虑未来十年的职业韧性。软件工程8分，电子科技36分，差距一目了然。</div>
+      </div>
+      <div class="vs fade-in">
+        <div class="vs-num">6 维</div>
+        <div class="vs-title">六维量化评估每个志愿</div>
+        <div class="vs-desc">学科质量、保研潜力、城市匹配、兴趣匹配、收入出口、录取把握——每一维都有数字，不凭感觉，不靠经验，直接对比。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FEATURE DEEP DIVE -->
+<section class="sec sec-g" id="features">
+  <div class="wrap">
+    <span class="eyebrow">四大核心模块</span>
+    <h2 class="ttl">不只是推荐清单<br>而是<em style="font-style:normal;color:var(--gold)">一套完整的决策系统</em></h2>
+    <p class="sub" style="max-width:600px;">以下均为真实报告数据示例——点击各模块，感受这份报告和市面上其他产品的本质区别。</p>
+
+    <div class="step-nav" style="margin-top:40px;" id="ftabs">
+      <button class="snav on" data-p="fp0">① 学生画像分析</button>
+      <button class="snav" data-p="fp1">② AI替代风险</button>
+      <button class="snav" data-p="fp2">③ 六维量化评分</button>
+      <button class="snav" data-p="fp3">④ 志愿策略全览</button>
+    </div>
+
+    <!-- Panel 0: 学生画像 -->
+    <div class="spanel on" id="fp0">
+      <div class="rc">
+        <div class="rc-hd">
+          <span class="rc-title">STUDENT PROFILE · 学生画像分析</span>
+          <span class="rc-badge">霍兰德 RIE 型</span>
+        </div>
+        <div class="rc-body">
+          <div class="sboxes">
+            <div class="sbox"><div class="sbox-num">612</div><div class="sbox-lbl">高考总分</div></div>
+            <div class="sbox"><div class="sbox-num">RIE</div><div class="sbox-lbl">霍兰德类型</div></div>
+            <div class="sbox"><div class="sbox-num">4,820</div><div class="sbox-lbl">全省排名</div></div>
+            <div class="sbox"><div class="sbox-num">理工</div><div class="sbox-lbl">优势方向</div></div>
+          </div>
+          <div class="two">
+            <div>
+              <div class="pl" style="margin-bottom:12px;">霍兰德六维人格画像</div>
+              <div class="dbars">
+                <div class="drow"><span class="dlabel">研究型 R</span><div class="dtrack"><div class="dfill" style="width:82%"></div></div><span class="dval">82</span></div>
+                <div class="drow"><span class="dlabel">探索型 I</span><div class="dtrack"><div class="dfill" style="width:76%"></div></div><span class="dval">76</span></div>
+                <div class="drow"><span class="dlabel">企业型 E</span><div class="dtrack"><div class="dfill" style="width:55%"></div></div><span class="dval">55</span></div>
+                <div class="drow"><span class="dlabel">艺术型 A</span><div class="dtrack"><div class="dfill" style="width:28%"></div></div><span class="dval">28</span></div>
+                <div class="drow"><span class="dlabel">社会型 S</span><div class="dtrack"><div class="dfill" style="width:34%"></div></div><span class="dval">34</span></div>
+                <div class="drow"><span class="dlabel">传统型 C</span><div class="dtrack"><div class="dfill" style="width:44%"></div></div><span class="dval">44</span></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="highlight-box">
+                <div class="pl">AI 规划建议</div>
+                <div class="pt">该学生为典型 <strong>RIE 型</strong>——偏好系统建构与逻辑推导，创造力强，对重复性事务耐受低。报告据此优先推荐<strong>计算机类、电子工程、数学统计</strong>方向，每个专业附该学生的兴趣契合度评分。</div>
+                <div class="pt" style="margin-top:10px;">结合省排 4,820，<strong>985 二梯队可冲，强 211 为稳，双非头部为保</strong>。系统自动生成 50 个候选志愿，按保 / 稳 / 冲三层分布。</div>
+              </div>
+              <div class="info-box">
+                <strong>为什么大多数规划不做这一步？</strong><br>因为霍兰德测评需要专业解读——光凭分数匹配，选错专业不是分不够，而是<strong>画像对不上</strong>。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 1: AI替代风险 -->
+    <div class="spanel" id="fp1">
+      <div class="rc">
+        <div class="rc-hd">
+          <span class="rc-title">AI DISPLACEMENT RISK · AI替代风险评估</span>
+          <span class="rc-badge">独家评估模型 · 0~100分</span>
+        </div>
+        <div class="rc-body">
+          <div class="highlight-box" style="margin-bottom:22px;border-left:3px solid var(--gold);">
+            <div class="pt"><strong>为什么要评估AI替代风险？</strong> 你今天填的专业，四年后才入学、再四年后才毕业。这份报告是市面上<strong>唯一</strong>会告诉你10年后哪些岗位会被AI吃掉的志愿规划产品。</div>
+          </div>
+          <div class="mlist">
+            <div class="mrow mhd">
+              <span>推荐专业</span>
+              <span style="text-align:right;">AI风险评分</span>
+              <span style="text-align:right;">就业趋势</span>
+              <span style="text-align:center;">推荐结论</span>
+            </div>
+            <div class="mrow">
+              <div><div class="mname">计算机科学与技术</div><div class="mdesc">核心算法 + 系统设计方向</div></div>
+              <div class="ai-chip"><span class="ai-chip-num">8</span><span class="ai-chip-lbl">低风险</span></div>
+              <div style="font-size:13px;color:var(--green);font-weight:600;">↑ 持续增长</div>
+              <div style="text-align:center;"><span class="tbao">强推荐</span></div>
+            </div>
+            <div class="mrow">
+              <div><div class="mname">软件工程</div><div class="mdesc">工程化开发 + 项目架构</div></div>
+              <div class="ai-chip"><span class="ai-chip-num">12</span><span class="ai-chip-lbl">低风险</span></div>
+              <div style="font-size:13px;color:var(--green);font-weight:600;">↑ 持续增长</div>
+              <div style="text-align:center;"><span class="tbao">强推荐</span></div>
+            </div>
+            <div class="mrow">
+              <div><div class="mname">电子信息工程</div><div class="mdesc">嵌入式 + 硬件方向</div></div>
+              <div class="ai-chip"><span class="ai-chip-num">36</span><span class="ai-chip-lbl">中风险</span></div>
+              <div style="font-size:13px;color:#f5a623;font-weight:600;">→ 结构分化</div>
+              <div style="text-align:center;"><span class="twen">视方向</span></div>
+            </div>
+            <div class="mrow">
+              <div><div class="mname">会计学</div><div class="mdesc">财务核算 + 审计方向</div></div>
+              <div class="ai-chip low"><span class="ai-chip-num">78</span><span class="ai-chip-lbl">高风险</span></div>
+              <div style="font-size:13px;color:var(--red);font-weight:600;">↓ 岗位收缩</div>
+              <div style="text-align:center;"><span class="tchong">不推荐</span></div>
+            </div>
+            <div class="mrow">
+              <div><div class="mname">工商管理</div><div class="mdesc">通用管理 + 市场方向</div></div>
+              <div class="ai-chip low"><span class="ai-chip-num">65</span><span class="ai-chip-lbl">高风险</span></div>
+              <div style="font-size:13px;color:var(--red);font-weight:600;">↓ 供过于求</div>
+              <div style="text-align:center;"><span class="tchong">不推荐</span></div>
+            </div>
+          </div>
+          <div class="info-box" style="margin-top:16px;">
+            报告为 <strong>50 个候选专业逐一评估 AI 替代风险评分</strong>，并给出岗位趋势判断。软件工程 8 分 vs 会计 78 分——同样的分数段，同样的省排名，十年后的差距一目了然。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 2: 六维评分 -->
+    <div class="spanel" id="fp2">
+      <div class="rc">
+        <div class="rc-hd">
+          <span class="rc-title">SIX-DIMENSION SCORING · 六维量化评分</span>
+          <span class="rc-badge">北京邮电大学 · 计算机科学与技术</span>
+        </div>
+        <div class="rc-body">
+          <div class="highlight-box" style="margin-bottom:22px;border-left:3px solid var(--gold);">
+            <div class="pt">每一个推荐志愿，都要在<strong>六个维度</strong>上通过量化打分——而不是"这学校不错"或"分数刚好够"。以下是其中一个志愿的完整六维拆解。</div>
+          </div>
+          <div class="two">
+            <div>
+              <div class="pl" style="margin-bottom:16px;">六维综合评分</div>
+              <div class="dbars">
+                <div class="drow"><span class="dlabel">学科质量</span><div class="dtrack"><div class="dfill" style="width:88%"></div></div><span class="dval">88</span></div>
+                <div class="drow"><span class="dlabel">保研潜力</span><div class="dtrack"><div class="dfill" style="width:72%"></div></div><span class="dval">72</span></div>
+                <div class="drow"><span class="dlabel">城市匹配</span><div class="dtrack"><div class="dfill" style="width:90%"></div></div><span class="dval">90</span></div>
+                <div class="drow"><span class="dlabel">兴趣匹配</span><div class="dtrack"><div class="dfill" style="width:82%"></div></div><span class="dval">82</span></div>
+                <div class="drow"><span class="dlabel">收入出口</span><div class="dtrack"><div class="dfill" style="width:86%"></div></div><span class="dval">86</span></div>
+                <div class="drow"><span class="dlabel">录取把握</span><div class="dtrack"><div class="dfill" style="width:68%"></div></div><span class="dval">68</span></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div class="highlight-box">
+                <div class="pl">各维度说明</div>
+                <table class="ptable">
+                  <tr><td>学科质量</td><td>该校该专业学科评级与师资水平</td></tr>
+                  <tr><td>保研潜力</td><td>历年保研率及推免目标院校质量</td></tr>
+                  <tr><td>城市匹配</td><td>学生城市偏好与院校所在地匹配度</td></tr>
+                  <tr><td>兴趣匹配</td><td>基于霍兰德画像的专业兴趣契合度</td></tr>
+                  <tr><td>收入出口</td><td>毕业5年中位薪资及就业去向质量</td></tr>
+                  <tr><td>录取把握</td><td>基于历年位次的录取概率估算</td></tr>
+                </table>
+              </div>
+              <div class="info-box">
+                每个推荐志愿都附有<strong>综合评分</strong>，50个候选可以直接横向对比——让你看懂为什么这个志愿值得填，为什么另一个不值得，而不是凭感觉。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: 志愿策略 -->
+    <div class="spanel" id="fp3">
+      <div class="rc">
+        <div class="rc-hd">
+          <span class="rc-title">VOLUNTEER STRATEGY · 最终志愿策略（节选）</span>
+          <span class="rc-badge">50个候选 · 保 / 稳 / 冲三层</span>
+        </div>
+        <div class="rc-body">
+          <div class="highlight-box" style="margin-bottom:20px;border-left:3px solid var(--gold);">
+            <div class="pt">报告按<strong>保底 / 稳妥 / 冲刺</strong>三层逻辑分配50个志愿，每一条均标注录取概率与六维综合评分。以下为前6条节选示例。</div>
+          </div>
+          <div style="margin-bottom:20px;">
+            <div class="pl" style="margin-bottom:8px;">志愿层次分布（共50个候选）</div>
+            <div class="csb">
+              <div class="csb-rush" style="width:26%;"><span>冲刺 13</span></div>
+              <div class="csb-stable" style="width:44%;"><span>稳妥 22</span></div>
+              <div class="csb-safe" style="width:30%;"><span>保底 15</span></div>
+            </div>
+            <div class="csb-leg">
+              <span class="csb-li"><span class="csb-dot" style="background:#ff453a;"></span>冲刺（录取概率 30~50%）</span>
+              <span class="csb-li"><span class="csb-dot" style="background:#0071e3;"></span>稳妥（录取概率 55~75%）</span>
+              <span class="csb-li"><span class="csb-dot" style="background:#30d158;"></span>保底（录取概率 80%+）</span>
+            </div>
+          </div>
+          <div class="blur-wrap">
+            <div class="blur-content">
+              <table class="vt">
+                <thead><tr>
+                  <th style="width:30px;">#</th>
+                  <th>院校 · 专业</th>
+                  <th>层次</th>
+                  <th>录取概率</th>
+                  <th>综合评分</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td style="color:var(--ink3);font-size:12px;">01</td><td><div style="font-weight:600;">北京邮电大学</div><div style="font-size:12px;color:var(--ink3);">计算机科学与技术</div></td><td><span class="tchong">冲刺</span></td><td><span class="ph">43%</span></td><td><div class="pb-row"><div style="font-size:13px;font-weight:700;">86分</div><div class="pb-bar"><div class="pb-fill" style="width:86%;background:var(--gold);"></div></div></div></td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">02</td><td><div style="font-weight:600;">华中科技大学</div><div style="font-size:12px;color:var(--ink3);">软件工程</div></td><td><span class="twen">稳妥</span></td><td><span class="pm">67%</span></td><td><div class="pb-row"><div style="font-size:13px;font-weight:700;">84分</div><div class="pb-bar"><div class="pb-fill" style="width:84%;background:var(--gold);"></div></div></div></td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">03</td><td><div style="font-weight:600;">西安交通大学</div><div style="font-size:12px;color:var(--ink3);">人工智能</div></td><td><span class="twen">稳妥</span></td><td><span class="pm">58%</span></td><td><div class="pb-row"><div style="font-size:13px;font-weight:700;">81分</div><div class="pb-bar"><div class="pb-fill" style="width:81%;background:var(--gold);"></div></div></div></td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">04</td><td><div style="font-weight:600;">北京航空航天大学</div><div style="font-size:12px;color:var(--ink3);">计算机科学与技术</div></td><td><span class="tchong">冲刺</span></td><td><span class="ph">31%</span></td><td><div class="pb-row"><div style="font-size:13px;font-weight:700;">79分</div><div class="pb-bar"><div class="pb-fill" style="width:79%;background:var(--gold);"></div></div></div></td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">05</td><td><div style="font-weight:600;">哈尔滨工业大学</div><div style="font-size:12px;color:var(--ink3);">软件工程</div></td><td><span class="twen">稳妥</span></td><td><span class="pm">72%</span></td><td><div class="pb-row"><div style="font-size:13px;font-weight:700;">80分</div><div class="pb-bar"><div class="pb-fill" style="width:80%;background:var(--gold);"></div></div></div></td></tr>
+                  <tr><td style="color:var(--ink3);font-size:12px;">06</td><td><div style="font-weight:600;">中国科学技术大学</div><div style="font-size:12px;color:var(--ink3);">数学与应用数学</div></td><td><span class="tchong">冲刺</span></td><td><span class="ph">28%</span></td><td><div class="pb-row"><div style="font-size:13px;font-weight:700;">77分</div><div class="pb-bar"><div class="pb-fill" style="width:77%;background:var(--gold);"></div></div></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="blur-overlay">
+              <div class="lock-box">
+                <div class="lock-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="8" rx="2" stroke="#9a7d4a" stroke-width="1.4"/><path d="M5 7V5a3 3 0 016 0v2" stroke="#9a7d4a" stroke-width="1.4" stroke-linecap="round"/></svg>
+                </div>
+                <div class="lock-txt">完整50条志愿 · 含保底层全部详情</div>
+                <button class="lock-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">预约专属报告</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- REPORT GALLERY -->
+<section class="sec sec-g" id="walkthrough">
+  <div class="wrap">
+    <span class="eyebrow">完整版报告</span>
+    <h2 class="ttl">完整版报告 · 14页全览</h2>
+    <p class="sub" style="max-width:520px;">以下为完整版报告真实截图，共14页，从学生画像到最终志愿策略，每页均包含详细的个性化分析内容</p>
+    <div class="rgallery">
+
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p01.jpg" alt="封面 · 高考志愿推荐报告">
+        <div class="rg-label">封面 · 高考志愿推荐报告</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p02.jpg" alt="第 02 页 · 学生画像与规划建议">
+        <div class="rg-label">第 02 页 · 学生画像与规划建议</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p03.jpg" alt="第 03 页 · 决策图表概览">
+        <div class="rg-label">第 03 页 · 决策图表概览</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p04.jpg" alt="第 04 页 · 推荐结构图谱">
+        <div class="rg-label">第 04 页 · 推荐结构图谱</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p05.jpg" alt="第 05 页 · AI替代风险与职业韧性">
+        <div class="rg-label">第 05 页 · AI替代风险与职业韧性</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p06.jpg" alt="第 06 页 · AI替代风险行动建议">
+        <div class="rg-label">第 06 页 · AI替代风险行动建议</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p07.jpg" alt="第 07 页 · 执行摘要">
+        <div class="rg-label">第 07 页 · 执行摘要</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p08.jpg" alt="第 08 页 · 前五志愿理由拆解">
+        <div class="rg-label">第 08 页 · 前五志愿理由拆解</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p09.jpg" alt="第 09 页 · 前五志愿理由拆解（续）">
+        <div class="rg-label">第 09 页 · 前五志愿理由拆解（续）</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p10.jpg" alt="第 10 页 · 策略与风险提示">
+        <div class="rg-label">第 10 页 · 策略与风险提示</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p11.jpg" alt="第 11 页 · 最终志愿策略页">
+        <div class="rg-label">第 11 页 · 最终志愿策略页</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p12.jpg" alt="第 12 页 · 推荐专业深读">
+        <div class="rg-label">第 12 页 · 推荐专业深读</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p13.jpg" alt="第 13 页 · 推荐专业深读（续）">
+        <div class="rg-label">第 13 页 · 推荐专业深读（续）</div>
+      </div>
+      <div class="rg-item fade-in">
+        <img class="rg-img" src="images/report-p14.jpg" alt="第 14 页 · 附录：完整候选摘要">
+        <div class="rg-label">第 14 页 · 附录：完整候选摘要</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- CTA -->
+<section class="cta-sec" id="cta">
+  <div class="wrap-sm">
+    <span class="eyebrow" style="display:block;text-align:center;color:var(--gold2);margin-bottom:16px;">专属报告预约</span>
+    <h2 class="ttl" style="text-align:center;color:#fff;margin-bottom:16px;">你的孩子<br><em>同样值得这份认真</em></h2>
+    <p class="sub" style="color:rgba(255,255,255,.45);text-align:center;margin-bottom:16px;max-width:460px;margin-left:auto;margin-right:auto;">基于霍兰德画像、AI替代风险与六维量化分析，为每位考生定制一份清晰的志愿决策报告。</p>
+    <p class="sub" style="color:rgba(255,255,255,.45);text-align:center;margin-bottom:40px;max-width:400px;font-size:14px;margin-left:auto;margin-right:auto;">扫描下方二维码，添加 Jackie 老师微信，免费咨询志愿规划方案</p>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div style="background:#fff;border-radius:20px;padding:20px;display:inline-flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 8px 40px rgba(0,0,0,.35);">
+        <img src="images/wechat-qr.jpg" alt="Jackie老师微信二维码" style="width:180px;height:180px;object-fit:contain;border-radius:8px;display:block;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#07C160"><path d="M8.5 13.5c-.83 0-1.5-.67-1.5-1.5S7.67 10.5 8.5 10.5 10 11.17 10 12s-.67 1.5-1.5 1.5zm7 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM12 2C6.48 2 2 6.03 2 11c0 2.76 1.3 5.23 3.35 6.93L4.5 21l3.62-1.81A10.5 10.5 0 0012 20c5.52 0 10-4.03 10-9S17.52 2 12 2z"/></svg>
+          <span style="font-size:14px;font-weight:700;color:#1d1d1f;">Jackie 老师</span>
+          <span style="font-size:12px;color:#6e6e73;">· 慧途研究院顾问</span>
+        </div>
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,.3);margin:0;">微信扫码 · 免费咨询 · 通常24小时内回复</p>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#111;border-top:1px solid rgba(255,255,255,.06);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+  <div style="font-size:14px;color:rgba(255,255,255,.75);font-weight:500;"><span style="color:var(--gold2);">慧</span>途研究院</div>
+  <div style="font-size:11.5px;color:rgba(255,255,255,.28);">© 2024 慧途研究院 · 专注高考志愿规划</div>
+</footer>
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver(e => {
+  e.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    setTimeout(() => el.classList.add('vis'), parseInt(el.dataset.d || 0));
+    io.unobserve(el);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach((el, i) => {
+  el.dataset.d = i * 80;
+  io.observe(el);
+});
+
+// Bar animation
+function runBars(container) {
+  container.querySelectorAll('.dfill').forEach(el => {
+    el.classList.remove('run');
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('run')));
+  });
+}
+
+// Trigger bars when feature section scrolls into view
+const barObserver = new IntersectionObserver(e => {
+  e.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    runBars(document.querySelector('#fp0'));
+    barObserver.disconnect();
+  });
+}, { threshold: 0.2 });
+const featSec = document.getElementById('features');
+if (featSec) barObserver.observe(featSec);
+
+// Feature tab switching
+document.querySelectorAll('#ftabs .snav').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#ftabs .snav').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    const panelId = btn.dataset.p;
+    document.querySelectorAll('#features .spanel').forEach(p => p.classList.remove('on'));
+    const panel = document.getElementById(panelId);
+    panel.classList.add('on');
+    runBars(panel);
+  });
+});
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').style.borderBottomColor =
+    window.scrollY > 30 ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.07)';
+}, { passive: true });
+</script>
+</body>
+</html>
